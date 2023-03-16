@@ -8,10 +8,13 @@ import veterinaryRoutes from "./routes/veterinaryRoutes.js";
 // Iniciamos el servidor de Express
 const app = express();
 
+// Le decimos al servidor que nuestros request siempre se recogeran en JSON
+app.use(express.json());
+
 // Hacemos la búsqueda de todas las variables de entorno
 dotenv.config();
 
-// Tras iniciar el servidor, conectamos a la bbdd
+// Tras iniciar y configurar el servidor, conectamos a la bbdd
 dbConnect();
 
 

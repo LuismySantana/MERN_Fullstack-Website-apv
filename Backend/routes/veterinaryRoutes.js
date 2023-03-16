@@ -7,7 +7,7 @@ import { registerVeterinary, getVeterinaryProfile } from "../controllers/veterin
 const veterinaryRoutes = express.Router();
 
 
-veterinaryRoutes.post("/", registerVeterinary)
+veterinaryRoutes.post("/register", registerVeterinary)
 veterinaryRoutes.get("/profile", getVeterinaryProfile)
 
 

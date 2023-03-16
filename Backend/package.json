@@ -1,5 +1,5 @@
 {
-  "name": "vpc-backend",
+  "name": "apv-backend",
   "type": "module",
   "version": "1.0.0",
   "description": "Backend de la web de Administracion de Pacientes de Veterinario",

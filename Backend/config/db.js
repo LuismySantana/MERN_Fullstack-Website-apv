@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 
 const dbConnect = async () => {
     try {
-        const db = await mongoose.connect(
+        const db = await mongoose.connect( // Como hacemos la conexion a mongoose directamente, es una instancia de conexion global. Es decir que siempre que referencie a mongoose será a la conexion creada. La varaible de db se recoge solo para mostrar datos de la conexion
             process.env.MONGO_URI,
             {
                 useNewUrlParser: true,

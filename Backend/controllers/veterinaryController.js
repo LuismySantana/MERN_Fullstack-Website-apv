@@ -2,24 +2,20 @@
 
 import Veterinary from "../models/Veterinary.js";
 
-// TODO: Lo último que hicimos fue crear una request valida para registerVeterinary en Thunder client que ya pasara los parametros obligatorios en el body.
-// TODO: Ahora lo que toca es aprender a almacenar los registros con moongose. Mañana le damos que esta chulo
 
-
-const registerVeterinary = (req, res) => {
-    const { email, password, name } = req.body;
-    
-    console.log(email, password, name);
+const registerVeterinary = async (req, res) => {
 
     try {
-        // Guardamos un nuevo veterinario
-
+        // Guardamos un nuevo veterinario (usando el model de Veterinaries que ya creamos)
+        const newVet = new Veterinary(req.body); // En req.body ya tenemos el objeto con los datos en cuestion, como estos respetan los nombres de las varaibles del modelo los asigna de forma automatica
+        
+        const isSavedNewVet = await newVet.save();
         
     } catch (error) {
-        console.log
+        console.log(error);
     }
     
-    res.json(                           // Send es para enviar información al navegador pero una API debe devolver info en JSON asi que usamos .json()
+    res.json(  // Send es para enviar información al navegador pero una API debe devolver info en JSON asi que usamos .json()
         {
             message: "Register a new Veterinary"
         }

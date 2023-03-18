@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import generateToken from "../helpers/generateToken.js";
 
 // Así definimos la estructura de datos de nuestro Modelo, es decir, su esquema (mongoDB ya añade un id, no hace falta añadirlo en el modelo)
 const veterinarySchema = mongoose.Schema({
@@ -28,6 +29,8 @@ const veterinarySchema = mongoose.Schema({
         trim: true
     },
     token: {
+        type: String,
+        default: generateToken()
 
     },
     validatedUser: {

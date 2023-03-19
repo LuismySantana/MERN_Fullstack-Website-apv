@@ -29,6 +29,49 @@ const registerVeterinary = async (req, res) => {
 };
 
 
+const verifyUserTokken = async (req, res) => {
+    const response = {};
+
+    try {
+        const { email, token } = req.params;
+
+        const userToVerify = await Veterinary.findOne({email});
+
+        if (!userToVerify) {
+            response.status = 400;
+            response.message = "The user does not exists";
+
+        } else if (userToVerify.validatedUser) {
+            response.status = 400;
+            response.message = "This user is already validated";
+
+        } else if (userToVerify.token !== token) {
+            response.status = 401;
+            response.message = "Incorrect token";
+
+        } else {
+            userToVerify.token = null;
+            userToVerify.validatedUser = true;
+
+            await userToVerify.save(); // Así reescribimos el usuario
+
+            response.status = 200;
+            response.message = "User verified";
+            response.email = email
+        }
+
+    } catch (error) {
+        response.status = 500;
+        response.message = error.message;
+
+    } finally {
+        res.status(response.status).json(response);
+    }
+}
+
+
+
+
 const getVeterinaryProfile = (req, res) => {
     res.json(                           // Send es para enviar información al navegador pero una API debe devolver info en JSON asi que usamos .json()
         {
@@ -41,5 +84,6 @@ const getVeterinaryProfile = (req, res) => {
 
 export {
     registerVeterinary,
-    getVeterinaryProfile
+    getVeterinaryProfile,
+    verifyUserTokken
 }

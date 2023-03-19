@@ -61,4 +61,5 @@ app.listen(port, () => {
         - Express es el framework de Node que CREA el servidor con todos sus endpoints, etc
         - Nodemon es un plugin que me resetea la ejecución de Node de forma automatica tras cada cambio
         - dotenv es para recoger variables de entorno
+        - bcrypt sirve para encriptar/desencriptar passwords
 */

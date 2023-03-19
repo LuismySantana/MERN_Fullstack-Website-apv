@@ -29,7 +29,7 @@ const registerVeterinary = async (req, res) => {
 };
 
 
-const verifyUserTokken = async (req, res) => {
+const verifyVeterinaryTokken = async (req, res) => {
     const response = {};
 
     try {
@@ -80,10 +80,15 @@ const getVeterinaryProfile = (req, res) => {
     )
 };
 
+const loginVeterinary = (req, res) => {
+    console.log("login");
+    res.json(req.body);
+}
 
 
 export {
     registerVeterinary,
     getVeterinaryProfile,
-    verifyUserTokken
+    verifyVeterinaryTokken,
+    loginVeterinary
 }

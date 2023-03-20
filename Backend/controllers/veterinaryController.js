@@ -109,6 +109,8 @@ const loginVeterinary = async (req, res) => {
 
 
 const getVeterinaryProfile = (req, res) => {
+    console.log("Get user profile");
+    
     res.json(                           // Send es para enviar información al navegador pero una API debe devolver info en JSON asi que usamos .json()
         {
             message: "Get user profile"

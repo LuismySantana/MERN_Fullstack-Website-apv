@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import generateToken from "../helpers/generateToken.js";
 
+
+
 // Así definimos la estructura de datos de nuestro Modelo, es decir, su esquema (mongoDB ya añade un id, no hace falta añadirlo en el modelo)
 const veterinarySchema = mongoose.Schema({
     name: {
@@ -41,7 +43,7 @@ const veterinarySchema = mongoose.Schema({
 });
 
 
-
+//En los schemas podemos añadir los hooks pre/post para añadir acciones a los datos (coomo hashear la password previo a guardar el registro). Revisa la doc de mongoose para + info | Debemos usar function() porque usaremos this y recuerda que en las AF this referencia a la ventana global, no al scope actual
 veterinarySchema.pre("save", async function(next) {
     if (!this.isModified("password")) {
         next(); // Este hook de .pre() es un middleware. Por tanto este next implica pasar al siguiente middleware de la ejecución saltandose el hasheo (para cuando se modifiquen datos de usuario PERO sin modificar la contraseña o se enciptaria algo ya encriptado)
@@ -51,17 +53,18 @@ veterinarySchema.pre("save", async function(next) {
     this.password = await bcrypt.hash(this.password, salt);
 
 
-}); //En los schemas podemos añadir los hooks pre/post para añadir acciones a los datos (coomo hashear la password previo a guardar el registro). Revisa la doc de mongoose para + info | Debemos usar function() porque usaremos this y recuerda que en las AF this referencia a la ventana global, no al scope actual
+});
 
 
-
-veterinarySchema.methods.checkPassword = async function(password) { // Asi creamos metodos especificos para el modelo
+// Asi creamos metodos especificos para el modelo
+veterinarySchema.methods.checkPassword = async function(password) {
     return await bcrypt.compare(password, this.password);
-} 
-
+}
 
 
 // Usamos el esquema para definir un modelo (se recomienda ponerle a la variable el mismo nombre que el modelo)
 const Veterinary = mongoose.model("Veterinary", veterinarySchema, "veterinaries"); // Si no especificas la coleccion (3º param), mongoose enlazara el modelo a una coleccion con el nombre en plural (de forma auto el colega to pro, spongo que solo en ingles) del nombre que ponemos al model
+
+
 
 export default Veterinary;

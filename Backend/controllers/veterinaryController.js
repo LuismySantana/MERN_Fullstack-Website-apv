@@ -117,7 +117,6 @@ const getVeterinaryProfile = (req, res) => {
 
 
 
-
 export {
     registerVeterinary,
     getVeterinaryProfile,

@@ -14,7 +14,7 @@ const checkAuthentication = async (req, res, next) => {
             const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
             try {
-                req.currentVeterinary = await Veterinary.findById(decoded.id).select(   // Así es como: 1. Guardamos los datos en mi request para poder tener una "sesion" del usuario en el siguiente middleware; 2. Filtramos datos de una consulta con .select()
+                req.loggedVet = await Veterinary.findById(decoded.id).select(   // Así es como: 1. Guardamos los datos en mi request para poder tener una "sesion" del usuario en el siguiente middleware; 2. Filtramos datos de una consulta con .select()
                     "-password -token -validatedUser"
                 );
                 next();

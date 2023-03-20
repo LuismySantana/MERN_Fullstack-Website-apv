@@ -41,6 +41,7 @@ const veterinarySchema = mongoose.Schema({
 });
 
 
+
 veterinarySchema.pre("save", async function(next) {
     if (!this.isModified("password")) {
         next(); // Este hook de .pre() es un middleware. Por tanto este next implica pasar al siguiente middleware de la ejecución saltandose el hasheo (para cuando se modifiquen datos de usuario PERO sin modificar la contraseña o se enciptaria algo ya encriptado)
@@ -51,6 +52,13 @@ veterinarySchema.pre("save", async function(next) {
 
 
 }); //En los schemas podemos añadir los hooks pre/post para añadir acciones a los datos (coomo hashear la password previo a guardar el registro). Revisa la doc de mongoose para + info | Debemos usar function() porque usaremos this y recuerda que en las AF this referencia a la ventana global, no al scope actual
+
+
+
+veterinarySchema.methods.checkPassword = async function(password) { // Asi creamos metodos especificos para el modelo
+    return await bcrypt.compare(password, this.password);
+} 
+
 
 
 // Usamos el esquema para definir un modelo (se recomienda ponerle a la variable el mismo nombre que el modelo)

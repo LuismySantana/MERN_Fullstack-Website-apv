@@ -87,6 +87,10 @@ const loginVeterinary = async (req, res) => {
             response.status = 403;
             response.message = "This user email is not validated yet";
 
+        } else if (!await logUser.checkPassword(password)) {
+            response.status = 403;
+            response.message = "Incorrect password";
+            
         } else {
             response.status = 200;
             response.message = "User logged correctly";

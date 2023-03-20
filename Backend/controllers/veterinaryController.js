@@ -3,8 +3,8 @@
 import Veterinary from "../models/Veterinary.js";
 
 
-const registerVeterinary = async (req, res) => {
 
+const registerVeterinary = async (req, res) => {
     try {
         // El mail es unico, asi que debemos revisar si 
         const { email } = req.body;
@@ -24,7 +24,7 @@ const registerVeterinary = async (req, res) => {
         }
         
     } catch (error) {
-        res.status(400).json(error);
+        res.status(500).json(error);
     }
 };
 
@@ -70,6 +70,37 @@ const verifyVeterinaryTokken = async (req, res) => {
 }
 
 
+const loginVeterinary = async (req, res) => {
+    const response = {};
+
+    try {
+
+        const { email, password } = req.body;
+
+        const logUser = await Veterinary.findOne({ email }); 
+
+        if (!logUser) {
+            response.status = 403;
+            response.message = "The user does not exists";
+
+        } else if (!logUser.validatedUser) {
+            response.status = 403;
+            response.message = "This user email is not validated yet";
+
+        } else {
+            response.status = 200;
+            response.message = "User logged correctly";
+            response.email = email
+        }
+
+    } catch (error) {
+        response.status = 500;
+        response.message = error.message;
+
+    } finally {
+        res.status(response.status).json(response);
+    }
+}
 
 
 const getVeterinaryProfile = (req, res) => {
@@ -78,12 +109,9 @@ const getVeterinaryProfile = (req, res) => {
             message: "Get user profile"
         }
     )
-};
-
-const loginVeterinary = (req, res) => {
-    console.log("login");
-    res.json(req.body);
 }
+
+
 
 
 export {

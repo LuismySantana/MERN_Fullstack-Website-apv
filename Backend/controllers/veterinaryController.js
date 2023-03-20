@@ -1,5 +1,6 @@
 //? Recordemos que los controladores son el punto intermedio entre las vistas y los modelos. En el caso de una API, los controladores son accedidos a través de los endpoints, por eso se asignan al enrutamiento
 
+import generateJWT from "../helpers/generateJWT.js";
 import Veterinary from "../models/Veterinary.js";
 
 
@@ -94,7 +95,7 @@ const loginVeterinary = async (req, res) => {
         } else {
             response.status = 200;
             response.message = "User logged correctly";
-            response.email = email
+            response.token = generateJWT(logUser.id);
         }
 
     } catch (error) {

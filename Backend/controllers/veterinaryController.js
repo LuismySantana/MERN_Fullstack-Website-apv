@@ -118,10 +118,33 @@ const getVeterinaryProfile = (req, res) => {
 }
 
 
+const resetPasswordRequest = (req, res) => {
+    res.json({
+        msg: "Creating password reset request"
+    });
+}
+
+
+const createResetToken = (req, res) => {
+    res.json({
+        msg: "Sending password reset TOKEN"
+    });
+}
+
+
+const resetPasswordAction = (req, res) => {
+    res.json({
+        msg: "Performing password reset by using the TOKEN"
+    });
+}
+        
 
 export {
     registerVeterinary,
     getVeterinaryProfile,
     verifyVeterinaryTokken,
-    loginVeterinary
+    loginVeterinary,
+    resetPasswordRequest,
+    createResetToken,
+    resetPasswordAction
 }

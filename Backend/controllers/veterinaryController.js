@@ -118,10 +118,31 @@ const getVeterinaryProfile = (req, res) => {
 }
 
 
-const resetPasswordRequest = (req, res) => {
-    res.json({
-        msg: "Creating password reset request"
-    });
+// El usuario envía el su email para resetear la contraseña
+const resetPasswordRequest = async (req, res) => {
+    const email = req.body.email;
+    const response = {};
+
+    try {
+        const userToReset = await Veterinary.findOne({email});
+
+        if (userToReset) {
+            // TODO: Hacemos accion de reset
+            response.status = 200;
+            response.message = "Creating password reset request";
+
+        } else {
+            response.status = 403;
+            response.message = "User not found";
+        }
+        
+    } catch (error) {
+        response.status = 500;
+        response.message = error.message;
+
+    } finally {
+        res.status(response.status).json(response);
+    }
 }
 
 

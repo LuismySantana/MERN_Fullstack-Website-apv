@@ -19,8 +19,9 @@ veterinaryRoutes.post("/register", registerVeterinary);
 veterinaryRoutes.get("/verify/:email/:token", verifyVeterinaryTokken);
 veterinaryRoutes.post("/login", loginVeterinary);
 veterinaryRoutes.post("/password-reset", resetPasswordRequest);
-veterinaryRoutes.get("/password-reset/:token", createResetToken);
-veterinaryRoutes.post("/password-reset/:token", resetPasswordAction);
+veterinaryRoutes.route("/password-reset/:token").get(createResetToken).post(resetPasswordAction);	// Esto es lo mismo que:
+                                                                                                        // veterinaryRoutes.get("/password-reset/:token", createResetToken);
+                                                                                                        // veterinaryRoutes.post("/password-reset/:token", resetPasswordAction);
 
 // Rutas privadas
 veterinaryRoutes.get("/profile", checkAuthentication, getVeterinaryProfile);

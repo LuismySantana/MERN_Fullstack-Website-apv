@@ -3,7 +3,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import dbConnect from "./config/db.js";
-import veterinaryRoutes from "./routes/veterinaryRoutes.js";
+import veterinariesRoutes from "./routes/veterinariesRoutes.js";
+import patientsRoutes from "./routes/patientsRoutes.js";
 
 
 
@@ -24,7 +25,8 @@ dbConnect();
 
 
 // Punto de ruta para los endpoints de veterinarios
-app.use("/api/veterinaries", veterinaryRoutes)
+app.use("/api/veterinaries", veterinariesRoutes);
+app.use("/api/patients", patientsRoutes);
 
 
 const port = process.env.PORT || 4000; // De esta forma recogemos el puerto de nuestro servidor en el deployment

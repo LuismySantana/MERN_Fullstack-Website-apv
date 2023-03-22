@@ -1,6 +1,7 @@
 //? Recordemos que los controladores son el punto intermedio entre las vistas y los modelos. En el caso de una API, los controladores son accedidos a través de los endpoints, por eso se asignan al enrutamiento
 
 import generateJWT from "../helpers/generateJWT.js";
+import generateToken from "../helpers/generateToken.js";
 import Veterinary from "../models/Veterinary.js";
 
 
@@ -118,7 +119,7 @@ const getVeterinaryProfile = (req, res) => {
 }
 
 
-// El usuario envía el su email para resetear la contraseña
+// El usuario envía el su email para resetear la contraseña y le envia email con su token
 const resetPasswordRequest = async (req, res) => {
     const email = req.body.email;
     const response = {};
@@ -126,15 +127,24 @@ const resetPasswordRequest = async (req, res) => {
     try {
         const userToReset = await Veterinary.findOne({email});
 
-        if (userToReset) {
-            // TODO: Hacemos accion de reset
-            response.status = 200;
-            response.message = "Creating password reset request";
+        if (!userToReset) {
+            response.status = 404;
+            response.message = "User not found";
+
+        } else if (!userToReset.validatedUser) {
+            response.status = 403;
+            response.message = "User email not validated yet";
 
         } else {
-            response.status = 403;
-            response.message = "User not found";
+            // Ya que ya tenemos el registro de token, podemos aprovecharlo para este caso y no afectaría con el que tenemos para validacion de email puesto que 1º siempre se revisa si el mail ya esta verificado
+            userToReset.token = generateToken();
+            await userToReset.save();
+
+            response.status = 200;
+            response.message = "We have sent an email with the instructions.";
+            
         }
+        
         
     } catch (error) {
         response.status = 500;
@@ -146,17 +156,69 @@ const resetPasswordRequest = async (req, res) => {
 }
 
 
-const createResetToken = (req, res) => {
-    res.json({
-        msg: "Sending password reset TOKEN"
-    });
+// Validamos el token del usuario cuando trata de cambiar su password
+const validateResetToken = async (req, res) => {
+    const { email, token } = req.params;
+    const response = {};
+
+    try {
+        const userToReset = await Veterinary.findOne({email});
+    
+        if(!userToReset) {
+            response.status = 404;
+            response.message = "User not found";
+    
+        } else if (userToReset.token !== token) {
+            response.status = 403;
+            response.message = "Invalid token";
+
+        } else {
+            response.status = 200;
+            response.message = "Valid token";
+        }
+        
+    } catch (error) {
+        response.status = 500;
+        response.message = error.message;
+    
+    } finally {
+        res.status(response.status).json(response);
+    }
 }
 
 
-const resetPasswordAction = (req, res) => {
-    res.json({
-        msg: "Performing password reset by using the TOKEN"
-    });
+const resetPasswordAction = async (req, res) => {
+    const { email, token, password } = req.body;
+    const response = {};
+
+    try {
+        const userToReset = await Veterinary.findOne({email});
+        
+        if(!userToReset) {
+            response.status = 404;
+            response.message = "User not found";
+    
+        } else if (userToReset.token !== token) {
+            response.status = 403;
+            response.message = "Invalid token";
+    
+        } else {
+            userToReset.token = null;
+            userToReset.password = password;
+
+            await userToReset.save();
+            
+            response.status = 200;
+            response.message = "Password changed successfully.";
+        }
+        
+    } catch (error) {
+        response.status = 500;
+        response.message = error.message;
+        
+    } finally {
+        res.status(response.status).json(response);
+    }
 }
         
 
@@ -166,6 +228,6 @@ export {
     verifyVeterinaryTokken,
     loginVeterinary,
     resetPasswordRequest,
-    createResetToken,
+    validateResetToken,
     resetPasswordAction
 }

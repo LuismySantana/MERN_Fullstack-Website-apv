@@ -2,13 +2,15 @@
 
 import express from "express";
 import checkAuthentication from "../middleware/checkAuthentication.js";
-import { registerVeterinary, 
-        getVeterinaryProfile, 
-        verifyVeterinaryTokken, 
-        loginVeterinary,
-        resetPasswordRequest,
-        createResetToken,
-        resetPasswordAction} from "../controllers/veterinaryController.js";
+import {
+	registerVeterinary,
+	getVeterinaryProfile,
+	verifyVeterinaryTokken,
+	loginVeterinary,
+	resetPasswordRequest,
+	validateResetToken,
+	resetPasswordAction
+} from "../controllers/veterinaryController.js";
 
 
 
@@ -19,9 +21,8 @@ veterinaryRoutes.post("/register", registerVeterinary);
 veterinaryRoutes.get("/verify/:email/:token", verifyVeterinaryTokken);
 veterinaryRoutes.post("/login", loginVeterinary);
 veterinaryRoutes.post("/password-reset", resetPasswordRequest);
-veterinaryRoutes.route("/password-reset/:token").get(createResetToken).post(resetPasswordAction);	// Esto es lo mismo que:
-                                                                                                        // veterinaryRoutes.get("/password-reset/:token", createResetToken);
-                                                                                                        // veterinaryRoutes.post("/password-reset/:token", resetPasswordAction);
+veterinaryRoutes.route("/password-reset/:email/:token").get(validateResetToken);
+veterinaryRoutes.route("/password-reset/reset").post(resetPasswordAction);
 
 // Rutas privadas
 veterinaryRoutes.get("/profile", checkAuthentication, getVeterinaryProfile);

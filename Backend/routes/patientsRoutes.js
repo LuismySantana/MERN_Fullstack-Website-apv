@@ -1,4 +1,5 @@
 import express from "express";
+import checkAuthentication from "../middleware/checkAuthentication.js";
 import { 
     addNewPatient,
     getPatientsList
@@ -10,8 +11,8 @@ const patientsRoutes = express.Router();
 
 // Todas son rutas protegidas ya que los pacientes solo pueden ser gestionados por sus respectivos Veterinarios
 patientsRoutes.route("/")
-    .get(addNewPatient)
-    .post(getPatientsList);
+    .post(checkAuthentication, addNewPatient)
+    .get(getPatientsList);
 
 
 

@@ -13,7 +13,8 @@ const patientSchema = mongoose.Schema({
     },
     dischargeDate: {
         type: Date,
-        required: true
+        required: true,
+        default: Date.now()
     },
     ownerName: {
         type: String,

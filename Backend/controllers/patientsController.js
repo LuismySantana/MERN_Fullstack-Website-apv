@@ -2,14 +2,22 @@ import Patient from "../models/Patient.js";
 
 
 
-const myFunc = (req, res) => {
+const addNewPatient = (req, res) => {
     res.json({
-        msg: "Funcionan las rutas"
+        msg: "Add new patient"
+    })
+}
+
+
+const getPatientsList = (req, res) => {
+    res.json({
+        msg: "Get all patients"
     })
 }
 
 
 
 export {
-    myFunc
+    addNewPatient,
+    getPatientsList
 }

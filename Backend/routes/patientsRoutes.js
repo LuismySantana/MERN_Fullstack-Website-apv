@@ -1,11 +1,17 @@
 import express from "express";
-import { myFunc } from "../controllers/patientsController.js";
+import { 
+    addNewPatient,
+    getPatientsList
+} from "../controllers/patientsController.js";
 
 
 
 const patientsRoutes = express.Router();
 
-patientsRoutes.get("/rutita", myFunc)
+// Todas son rutas protegidas ya que los pacientes solo pueden ser gestionados por sus respectivos Veterinarios
+patientsRoutes.route("/")
+    .get(addNewPatient)
+    .post(getPatientsList);
 
 
 

@@ -1,5 +1,5 @@
 import express from "express";
-import checkAuthentication from "../middleware/checkAuthentication.js";
+import checkAuthentication from "../middlewares/checkAuthentication.js";
 import { 
     addNewPatient,
     getPatientsList,

@@ -220,7 +220,8 @@ const resetPasswordAction = async (req, res) => {
         res.status(response.status).json(response);
     }
 }
-        
+     
+
 
 export {
     registerVeterinary,

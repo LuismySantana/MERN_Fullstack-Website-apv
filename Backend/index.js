@@ -37,13 +37,6 @@ app.listen(port, () => {
 
 
 
-
-
-
-
-
-
-
 /*
     * Important info: 
         Modules:
@@ -52,4 +45,5 @@ app.listen(port, () => {
         - dotenv es para recoger variables de entorno
         - bcrypt sirve para encriptar/desencriptar passwords
         - jsonwebtoken sirve para crear JWT, en este proyecto se usara para crear las verificaciones de sesion de usuario
+        - mongoose es el ORM para bases de datos MongoDB
 */

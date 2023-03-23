@@ -1,7 +1,7 @@
 //? Aquí vamos a definir todas las rutas para gestionar los datos del modelo de veterinarios. En otras palabras, los endpoints para datos de veterinarios
 
 import express from "express";
-import checkAuthentication from "../middleware/checkAuthentication.js";
+import checkAuthentication from "../middlewares/checkAuthentication.js";
 import {
 	registerVeterinary,
 	getVeterinaryProfile,

@@ -40,8 +40,61 @@ const getPatientsList = async (req, res) => {
 }
 
 
+const getPatient = async (req, res) => {
+    const response = {};
+
+    try {
+        const searchedPatient = await Patient.findById(req.params.id);
+
+        if (!searchedPatient) {
+            response.status = 404;
+            response.message = "Patient not found.";
+
+        } else {
+            // Recordemos que las ID se guardan como ObjectId, es necesario parsearlos a string para compararlos sin errores
+            if (searchedPatient.veterinary.toString() === req.loggedVet._id.toString()) {
+                response.status = 200;
+                response.data = searchedPatient;
+
+            } else {
+                response.status = 403;
+                response.message = "You don`t have access to this patient.";
+            }
+
+        }
+        
+    } catch (error) {
+            response.status = 500;
+            response.message = error.message;
+        
+
+    } finally {
+        res.status(response.status).json(response);
+    }
+}
+
+
+const updatePatient = (req, res) => {
+    res.json({
+        status: 200,
+        mseesage: "Updating patient"
+    });
+}
+
+
+const deletePatient = (req, res) => {
+    res.json({
+        status: 200,
+        mseesage: "Deleting patient"
+    });
+}
+
+
 
 export {
     addNewPatient,
-    getPatientsList
+    getPatientsList,
+    getPatient,
+    updatePatient,
+    deletePatient
 }

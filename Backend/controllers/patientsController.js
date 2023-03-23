@@ -23,10 +23,20 @@ const addNewPatient = async (req, res) => {
 }
 
 
-const getPatientsList = (req, res) => {
-    res.json({
-        msg: "Get all patients"
-    })
+const getPatientsList = async (req, res) => {
+    try {
+        const patientsList = await Patient.find().where("veterinary").equals(req.loggedVet);
+        res.json({
+            status: 200,
+            patientsList
+        });
+        
+    } catch (error) {
+        res.status(500).json({
+            status: 500,
+            message: error.message
+        });
+    }
 }
 
 

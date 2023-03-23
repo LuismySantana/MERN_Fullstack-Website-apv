@@ -12,7 +12,7 @@ const patientsRoutes = express.Router();
 // Todas son rutas protegidas ya que los pacientes solo pueden ser gestionados por sus respectivos Veterinarios
 patientsRoutes.route("/")
     .post(checkAuthentication, addNewPatient)
-    .get(getPatientsList);
+    .get(checkAuthentication, getPatientsList);
 
 
 

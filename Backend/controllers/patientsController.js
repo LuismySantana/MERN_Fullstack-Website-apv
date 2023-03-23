@@ -117,11 +117,39 @@ const updatePatient = async (req, res) => {
 }
 
 
-const deletePatient = (req, res) => {
-    res.json({
-        status: 200,
-        message: "Deleting patient"
-    });
+const deletePatient = async (req, res) => {
+    const response = {};
+
+    try {
+        const searchedPatient = await Patient.findById(req.params.id);
+
+        if (!searchedPatient) {
+            response.status = 404;
+            response.message = "Patient not found.";
+
+        } else {
+            if (searchedPatient.veterinary.toString() === req.loggedVet._id.toString()) {
+
+                // Eliminamos al paciente
+                searchedPatient.deleteOne();
+                
+                response.status = 200;
+                response.message = "Patient deleted successfully.";
+
+            } else {
+                response.status = 403;
+                response.message = "You don`t have access to this patient.";
+            }
+
+        }
+        
+    } catch (error) {
+            response.status = 500;
+            response.message = error.message;
+
+    } finally {
+        res.status(response.status).json(response);
+    }
 }
 
 

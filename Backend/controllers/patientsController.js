@@ -66,7 +66,6 @@ const getPatient = async (req, res) => {
     } catch (error) {
             response.status = 500;
             response.message = error.message;
-        
 
     } finally {
         res.status(response.status).json(response);
@@ -74,18 +73,54 @@ const getPatient = async (req, res) => {
 }
 
 
-const updatePatient = (req, res) => {
-    res.json({
-        status: 200,
-        mseesage: "Updating patient"
-    });
+const updatePatient = async (req, res) => {
+    const response = {};
+
+    try {
+        const searchedPatient = await Patient.findById(req.params.id);
+
+        if (!searchedPatient) {
+            response.status = 404;
+            response.message = "Patient not found.";
+
+        } else {
+            if (searchedPatient.veterinary.toString() === req.loggedVet._id.toString()) {
+                
+                // Actualizamos los datos
+                const { petName, symptoms, dischargeDate, ownerName, ownerEmail } = req.body;
+                
+                searchedPatient.petName = petName || searchedPatient.petName;
+                searchedPatient.symptoms = symptoms || searchedPatient.symptoms;
+                searchedPatient.dischargeDate = dischargeDate || searchedPatient.dischargeDate;
+                searchedPatient.ownerName = ownerName || searchedPatient.ownerName;
+                searchedPatient.ownerEmail = ownerEmail || searchedPatient.ownerEmail;
+
+                searchedPatient.save();
+                
+                response.status = 200;
+                response.data = searchedPatient;
+
+            } else {
+                response.status = 403;
+                response.message = "You don`t have access to this patient.";
+            }
+
+        }
+        
+    } catch (error) {
+            response.status = 500;
+            response.message = error.message;
+
+    } finally {
+        res.status(response.status).json(response);
+    }
 }
 
 
 const deletePatient = (req, res) => {
     res.json({
         status: 200,
-        mseesage: "Deleting patient"
+        message: "Deleting patient"
     });
 }
 

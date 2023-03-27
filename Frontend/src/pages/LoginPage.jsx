@@ -1,10 +1,12 @@
 
 const LoginPage = () => {
   return (
-    <>
-        <h1>Login Page</h1>
-    </>
+    <div className=' bg-blue-500'>
+        <p>LoginPage</p>
+    </div>
   )
 }
 
-export default LoginPage;
+
+
+export default LoginPage

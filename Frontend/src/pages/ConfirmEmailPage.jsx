@@ -1,10 +1,12 @@
 
 const ConfirmEmailPage = () => {
   return (
-    <>
-        <h1>Confirm Email</h1>
-    </>
+    <div>
+        <p>ConfirmEmailPage</p>
+    </div>
   )
 }
 
-export default ConfirmEmailPage;
+
+
+export default ConfirmEmailPage

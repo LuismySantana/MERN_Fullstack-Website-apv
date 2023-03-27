@@ -1,10 +1,12 @@
 
 const ResetPasswordPage = () => {
   return (
-    <>
-        <h1>Reset Password</h1>
-    </>
+    <div>
+        <p>ResetPasswordPage</p>
+    </div>
   )
 }
 
-export default ResetPasswordPage;
+
+
+export default ResetPasswordPage

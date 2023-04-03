@@ -6,11 +6,13 @@ const LoginPage = () => {
     return (
         <>
             <div>
-                <h1 className=" w-fit mb-10 text-indigo-600 font-black text-5xl md:text-6xl text-center md:text-left">
-                    Iniciar sesión y Administra tus <span className="text-black">Pacientes</span>
+                <h1 className="mb-10 text-indigo-600 font-black text-5xl md:text-6xl text-center">
+                    Iniciar sesión y Administra tus {""}
+                    <span className="text-black">Pacientes</span>
                 </h1>
             </div>
-            <div>
+
+            <div className="bg-white p-5 shadow-lg rounded-md">
                 <form
                     action=""
                     className="flex flex-col"
@@ -25,8 +27,8 @@ const LoginPage = () => {
                         <input
                             type="email"
                             placeholder="Introduce tu email"
-                            className="border-2 rounded-md w-full p-3 mt-3 bg-gray-50"
                             id="login_email"
+                            className="border-2 rounded-md w-full p-3 mt-3 bg-gray-50"
                         />
                     </div>
                     
@@ -40,26 +42,25 @@ const LoginPage = () => {
                         <input
                             type="password"
                             placeholder="Introduce tu contraseña"
-                            className="border-2 rounded-md w-full p-3 mt-3 bg-gray-50"
                             id="login_password"
+                            className="border-2 rounded-md w-full p-3 mt-3 bg-gray-50"
                         />
                     </div>
 
                     <input
                         type="submit"
                         value="Iniciar sesión"
+                        id="login_submit"
                         className="w-full md:w-auto py-3 px-10 mt-10 block mx-auto rounded-md
-                            bg-indigo-700 text-white uppercase font-bold tracking-wide transition-colors duration-300
-                            hover:bg-indigo-800 hover:cursor-pointer"
+                                bg-indigo-700 text-white uppercase font-bold tracking-wide transition-colors duration-300
+                                hover:bg-indigo-800 hover:cursor-pointer"
                     />
                 </form>
 
-                <nav
-                    className="mt-10 text-center flex flex-col gap-2 text-gray-500"
-                >
+                <nav className="mt-10 text-center flex flex-col gap-2 text-gray-500">
                     <p>
-                        ¿No tienes una cuenta?
-                        <Link to="/register" className="font-bold text-indigo-500 transition-colors hover:text-indigo-700"> Regístrate</Link>
+                        ¿No tienes una cuenta? {""}
+                        <Link to="/register" className="font-bold text-indigo-500 transition-colors hover:text-indigo-700">Regístrate</Link>
                     </p>
                     <Link to="/reset-password" className="font-bold text-indigo-500 transition-colors hover:text-indigo-700">Olvidé mi contraseña</Link>
                 </nav>

@@ -1,8 +1,52 @@
 import { Link } from "react-router-dom"
-
-
+import { useState } from "react";
+import FormWarning from "../components/FormWarning";
 
 const RegisterPage = () => {
+
+	// Creamos un state para cada campo de tal forma que podamos controlarlos de forma independiente
+	const [ userName, setUserName ] = useState("");
+	const [ userEmail, setUserEmail ] = useState("");
+	const [ userPassword, setUserPassword ] = useState("");
+	const [ userPasswordRepeat, setUserPasswordRepeat ] = useState("");
+	const [ warning, setWarning ] = useState(null);
+	
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		if ([userName, userEmail, userPassword, userPasswordRepeat].includes("")) {
+			setWarning({
+				message: "Todos los campos son obligatorios",
+				error: true
+			});
+
+		} else if(userPassword !== userPasswordRepeat) {
+			setWarning({
+				message: "Las contraseñas deben ser iguales",
+				error: true
+			});
+
+		} else if (!isValidPassword(userPassword)) {
+			setWarning({
+				message: "La contraseña debe tener mínimo una letra, un número y 6 caracteres",
+				error: true
+			});
+			
+		} else {
+			// setWarning({
+			// 	message: "Ta to bien",
+			// 	error: false
+			// });
+			console.log("Ta to bien");
+			setWarning(null);
+		}
+	}
+
+	const isValidPassword = (password) => {
+		var passwordRegex = new RegExp(`^(?=.*[a-zA-Z])(?=.*[0-9])(?=.{6,})`); // Minimo una letra, un numero y 6 digitos
+		return passwordRegex.test(password);
+	}
+	
 	return (
 		<>
 			<div>
@@ -14,73 +58,75 @@ const RegisterPage = () => {
 
 			<div className="bg-white p-10 shadow-lg rounded-md">
 				<form
-					action=""
 					className="flex flex-col"
+					onSubmit={handleSubmit}
 				>
+					
+					{warning && (
+						<FormWarning 
+							warning={warning}
+						/>
+					)}
+
 					<div className="mb-5">
-						<label
-							htmlFor="register_name"
-							className="uppercase text-gray-600 block text-xl font-bold"
-						>
+						<label className="uppercase text-gray-600 block text-xl font-bold">
 							Nombre:
+							<input
+								type="text"
+								placeholder="Introduce tu nombre"
+								className="border-2 rounded-md w-full p-3 mt-3 text-base font-normal bg-gray-50"
+								// value={userName}
+								onChange={e => setUserName(e.target.value.trim())}
+							/>
 						</label>
-						<input
-							type="text"
-							placeholder="Introduce tu nombre"
-							className="border-2 rounded-md w-full p-3 mt-3 bg-gray-50"
-							id="register_name"
-						/>
 					</div>
 
 					<div className="my-5">
-						<label
-							htmlFor="register_email"
-							className="uppercase text-gray-600 block text-xl font-bold"
-						>
+						<label className="uppercase text-gray-600 block text-xl font-bold">
 							Correo Electrónico:
+							<input
+								type="email"
+								placeholder="Introduce tu email"
+								className="border-2 rounded-md w-full p-3 mt-3 text-base font-normal bg-gray-50"
+								// value={userEmail}
+								onChange={e => setUserEmail(e.target.value.trim())}
+							/>
 						</label>
-						<input
-							type="email"
-							placeholder="Introduce tu email"
-							id="register_email"
-							className="border-2 rounded-md w-full p-3 mt-3 bg-gray-50"
-						/>
 					</div>
 
 					<div className="my-5">
 						<label
-							htmlFor="register_password"
 							className="uppercase text-gray-600 block text-xl font-bold"
 						>
 							Contraseña:
+							<input
+								type="password"
+								placeholder="Introduce tu contraseña"
+								className="border-2 rounded-md w-full p-3 mt-3 text-base font-normal bg-gray-50"
+								// value={userPassword}
+								onChange={e => setUserPassword(e.target.value.trim())}
+							/>
 						</label>
-						<input
-							type="password"
-							placeholder="Introduce tu contraseña"
-							id="register_password"
-							className="border-2 rounded-md w-full p-3 mt-3 bg-gray-50"
-						/>
 					</div>
 
 					<div className="my-5">
 						<label
-							htmlFor="register_password_repeat"
 							className="uppercase text-gray-600 block text-xl font-bold"
 						>
 							Repite tu contraseña:
+							<input
+								type="password"
+								placeholder="Repite tu contraseña"
+								className="border-2 rounded-md w-full p-3 mt-3 text-base font-normal bg-gray-50"
+								// value={userPasswordRepeat}
+								onChange={e => setUserPasswordRepeat(e.target.value.trim())}
+							/>
 						</label>
-						<input
-							type="password"
-							placeholder="Repite tu contraseña"
-							id="register_password_repeat"
-							className="border-2 rounded-md w-full p-3 mt-3 bg-gray-50"
-						/>
 					</div>
 
 					<input
 						type="submit"
 						value="Crear cuenta"
-						id="register_submit"
 						className="w-full md:w-auto py-3 px-10 mt-10 block mx-auto rounded-md
 								bg-indigo-700 text-white uppercase font-bold tracking-wide transition-colors duration-300
 								hover:bg-indigo-800 hover:cursor-pointer"

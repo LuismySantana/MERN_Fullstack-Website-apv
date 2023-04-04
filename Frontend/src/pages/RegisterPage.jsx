@@ -6,18 +6,18 @@ const RegisterPage = () => {
 	return (
 		<>
 			<div>
-				<h1 className=" w-fit mb-10 text-indigo-600 font-black text-5xl md:text-6xl text-center md:text-left">
+				<h1 className=" w-fit mb-10 text-indigo-600 font-black text-5xl md:text-6xl text-center">
 					Crea tu cuenta y Administra tus {""}
 					<span className="text-black">Pacientes</span>
 				</h1>
 			</div>
 
-			<div className="bg-white p-5 shadow-lg rounded-md">
+			<div className="bg-white p-10 shadow-lg rounded-md">
 				<form
 					action=""
 					className="flex flex-col"
 				>
-					<div className="my-5">
+					<div className="mb-5">
 						<label
 							htmlFor="register_name"
 							className="uppercase text-gray-600 block text-xl font-bold"
@@ -92,7 +92,9 @@ const RegisterPage = () => {
                 >
                     <p>
                         ¿Ya tienes una cuenta? {""}
-                        <Link to="/" className="font-bold text-indigo-500 transition-colors hover:text-indigo-700">Inicia sesión</Link>
+                        <Link
+							className="font-bold text-indigo-500 transition-colors hover:text-indigo-700"
+							to="/">Inicia sesión</Link>
                     </p>
                 </nav>
 			</div>

@@ -12,12 +12,12 @@ const LoginPage = () => {
                 </h1>
             </div>
 
-            <div className="bg-white p-5 shadow-lg rounded-md">
+            <div className="bg-white p-10 shadow-lg rounded-md">
                 <form
                     action=""
                     className="flex flex-col"
                 >
-                    <div className="my-5">
+                    <div className="mb-5">
                         <label 
                             htmlFor="login_email"
                             className="uppercase text-gray-600 block text-xl font-bold"
@@ -60,9 +60,13 @@ const LoginPage = () => {
                 <nav className="mt-10 text-center flex flex-col gap-2 text-gray-500">
                     <p>
                         ¿No tienes una cuenta? {""}
-                        <Link to="/register" className="font-bold text-indigo-500 transition-colors hover:text-indigo-700">Regístrate</Link>
+                        <Link 
+                            className="font-bold text-indigo-500 transition-colors hover:text-indigo-700"
+                            to="/register">Regístrate</Link>
                     </p>
-                    <Link to="/reset-password" className="font-bold text-indigo-500 transition-colors hover:text-indigo-700">Olvidé mi contraseña</Link>
+                    <Link 
+                        className="font-bold text-indigo-500 transition-colors hover:text-indigo-700"
+                        to="/reset-password">Olvidé mi contraseña</Link>
                 </nav>
             </div>
         </>

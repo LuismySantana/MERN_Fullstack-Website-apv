@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import dbConnect from "./config/db.js";
 import veterinariesRoutes from "./routes/veterinariesRoutes.js";
 import patientsRoutes from "./routes/patientsRoutes.js";
-
+import cors from "cors";
 
 
 // Iniciamos el servidor de Express
@@ -22,6 +22,22 @@ dotenv.config();
 
 // Tras iniciar y configurar el servidor, conectamos a la bbdd
 dbConnect();
+
+
+// Configuramos los dominios permitidos por CORS
+const allowedDomains = ["http://localhost:5000"]; // TODO: Esto está hardcoded, hay que mirar como poner el port en front con env
+
+const corsOptions = {
+    origin: function(origin, callback) {
+        if (allowedDomains.indexOf(origin) !== -1) {
+            callback(null, true); // params: Mensaje de error, acceso a la peticion
+        } else {
+            callback(new Error("Request blocked by CORS"))
+        }
+    }
+}
+
+app.use(cors(corsOptions));
 
 
 // Punto de ruta para los endpoints de veterinarios
@@ -46,4 +62,5 @@ app.listen(port, () => {
         - bcrypt sirve para encriptar/desencriptar passwords
         - jsonwebtoken sirve para crear JWT, en este proyecto se usara para crear las verificaciones de sesion de usuario
         - mongoose es el ORM para bases de datos MongoDB
+        - cors permite gestionar la política de CORS para validar las peticiones del front 
 */

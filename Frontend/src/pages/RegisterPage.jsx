@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { useState } from "react";
 import FormWarning from "../components/FormWarning";
+import { registerNewUser } from "../utils";
 
 
 
@@ -13,7 +14,7 @@ const RegisterPage = () => {
 	const [ warning, setWarning ] = useState(null);
 
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		if ([userName, userEmail, userPassword, userPasswordRepeat].includes("")) {
@@ -38,14 +39,25 @@ const RegisterPage = () => {
 				error: true
 			});
 			return;
-		} 
-		
-		// setWarning({
-		// 	message: "Ta to bien",
-		// 	error: false
-		// });
-		console.log("Ta to bien");
+		}
+
+		// Si todas las validaciones pasan...
 		setWarning(null);
+
+		try {
+			await registerNewUser(userName, userEmail, userPassword);
+			setWarning({
+				message: "Registrado correctamente - Revisa tu email",
+				error: false
+			});
+
+			
+		} catch (error) {
+			setWarning({
+				message: error.response.data.message,
+				error: true
+			});
+		}
 	}
 
 	const isValidPassword = (password) => {

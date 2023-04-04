@@ -15,7 +15,7 @@ const registerVeterinary = async (req, res) => {
         if (emailExists) {
             // Así lanzamos un error de respuesta
             res.status(400).json({
-                message: "User already exists"
+                message: "Es usuario ya está registrado"
             });
 
         } else {

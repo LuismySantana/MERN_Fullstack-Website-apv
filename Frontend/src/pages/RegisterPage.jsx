@@ -2,15 +2,17 @@ import { Link } from "react-router-dom"
 import { useState } from "react";
 import FormWarning from "../components/FormWarning";
 
-const RegisterPage = () => {
 
+
+const RegisterPage = () => {
 	// Creamos un state para cada campo de tal forma que podamos controlarlos de forma independiente
 	const [ userName, setUserName ] = useState("");
 	const [ userEmail, setUserEmail ] = useState("");
 	const [ userPassword, setUserPassword ] = useState("");
 	const [ userPasswordRepeat, setUserPasswordRepeat ] = useState("");
 	const [ warning, setWarning ] = useState(null);
-	
+
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
@@ -19,33 +21,38 @@ const RegisterPage = () => {
 				message: "Todos los campos son obligatorios",
 				error: true
 			});
-
-		} else if(userPassword !== userPasswordRepeat) {
+			return;
+		}
+		
+		if(userPassword !== userPasswordRepeat) {
 			setWarning({
 				message: "Las contraseñas deben ser iguales",
 				error: true
 			});
-
-		} else if (!isValidPassword(userPassword)) {
+			return;
+		}
+		
+		if (!isValidPassword(userPassword)) {
 			setWarning({
 				message: "La contraseña debe tener mínimo una letra, un número y 6 caracteres",
 				error: true
 			});
-			
-		} else {
-			// setWarning({
-			// 	message: "Ta to bien",
-			// 	error: false
-			// });
-			console.log("Ta to bien");
-			setWarning(null);
-		}
+			return;
+		} 
+		
+		// setWarning({
+		// 	message: "Ta to bien",
+		// 	error: false
+		// });
+		console.log("Ta to bien");
+		setWarning(null);
 	}
 
 	const isValidPassword = (password) => {
 		var passwordRegex = new RegExp(`^(?=.*[a-zA-Z])(?=.*[0-9])(?=.{6,})`); // Minimo una letra, un numero y 6 digitos
 		return passwordRegex.test(password);
 	}
+	
 	
 	return (
 		<>

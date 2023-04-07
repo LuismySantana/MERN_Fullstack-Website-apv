@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import AuthLayout from './layouts/AuthLayout'
 import LoginPage from "./pages/LoginPage"
-import './index.css'
+import './styles/index.css'
 import RegisterPage from './pages/RegisterPage'
 import ConfirmEmailPage from './pages/ConfirmEmailPage'
 import ResetPasswordPage from './pages/ResetPasswordPage'

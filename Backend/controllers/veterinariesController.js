@@ -50,15 +50,15 @@ const verifyVeterinaryTokken = async (req, res) => {
 
         if (!userToVerify) {
             response.status = 400;
-            response.message = "The user does not exists";
+            response.message = "Este usuario no existe";
 
         } else if (userToVerify.validatedUser) {
             response.status = 400;
-            response.message = "This user is already validated";
+            response.message = "Este usuario ya está validado";
 
         } else if (userToVerify.token !== token) {
             response.status = 401;
-            response.message = "Incorrect token";
+            response.message = "Token inválido";
 
         } else {
             userToVerify.token = null;
@@ -67,7 +67,7 @@ const verifyVeterinaryTokken = async (req, res) => {
             await userToVerify.save(); // Así reescribimos el usuario
 
             response.status = 200;
-            response.message = "User verified";
+            response.message = "Usuario verificado correctamente";
             response.email = email
         }
 

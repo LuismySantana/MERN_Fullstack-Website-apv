@@ -2,6 +2,7 @@
 
 import generateJWT from "../helpers/generateJWT.js";
 import generateToken from "../helpers/generateToken.js";
+import sendRegisterEmail from "../helpers/sendRegisterEmail.js";
 import Veterinary from "../models/Veterinary.js";
 
 
@@ -9,7 +10,7 @@ import Veterinary from "../models/Veterinary.js";
 const registerVeterinary = async (req, res) => {
     try {
         // El mail es unico, asi que debemos revisar si 
-        const { email } = req.body;
+        const { email, name } = req.body;
         const emailExists = await Veterinary.findOne({email}) // email: email --> email | findOne me devuelve el primer registro que cumpla x condicion, si no hubiera, deuvelve null
 
         if (emailExists) {
@@ -22,10 +23,15 @@ const registerVeterinary = async (req, res) => {
             // Guardamos un nuevo veterinario (usando el model de Veterinaries que ya creamos)
             const newVet = new Veterinary(req.body); // En req.body ya tenemos el objeto con los datos en cuestion, como estos respetan los nombres de las varaibles del modelo los asigna de forma automatica
             const savedVetInfo = await newVet.save();
-            res.json(savedVetInfo);
 
             //Enviamos email con token de confirmacion
-            
+            sendRegisterEmail({
+                email,
+                name,
+                token: savedVetInfo.token
+            });
+
+            res.json(savedVetInfo);
         }
         
     } catch (error) {

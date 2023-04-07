@@ -25,7 +25,7 @@ dbConnect();
 
 
 // Configuramos los dominios permitidos por CORS
-const allowedDomains = ["http://localhost:5000"]; // TODO: Esto está hardcoded, hay que mirar como poner el port en front con env
+const allowedDomains = [process.env.FRONTEND_URL]; // TODO: Esto está hardcoded, hay que mirar como poner el port en front con env
 
 const corsOptions = {
     origin: function(origin, callback) {

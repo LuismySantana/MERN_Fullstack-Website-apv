@@ -1,11 +1,11 @@
-import axios from "axios";
+import axiosClient from "../config/axiosClient";
 
 
 
 const registerNewUser = async (userName, userEmail, userPassword) => {
-    const url = "http://127.0.0.1:4000/api/veterinaries/register";
+    const url = `/veterinaries/register`;
 
-    await axios.post(
+    await axiosClient.post(
         url,
         {
             name: userName,
@@ -19,9 +19,9 @@ const registerNewUser = async (userName, userEmail, userPassword) => {
 
 
 const verifyAccount = async (email, token) => {
-    const url = `http://127.0.0.1:4000/api/veterinaries/verify/${email}/${token}`;
+    const url = `/veterinaries/verify/${email}/${token}`;
 
-    const { data } = await axios.get(url);
+    const { data } = await axiosClient.get(url);
         
     return data;    
 }

@@ -63,4 +63,5 @@ app.listen(port, () => {
         - jsonwebtoken sirve para crear JWT, en este proyecto se usara para crear las verificaciones de sesion de usuario
         - mongoose es el ORM para bases de datos MongoDB
         - cors permite gestionar la política de CORS para validar las peticiones del front 
+        - nodemailer sirve para enviar emails desde un servidor de Node.js
 */

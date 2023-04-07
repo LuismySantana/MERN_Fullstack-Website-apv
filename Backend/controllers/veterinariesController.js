@@ -23,6 +23,9 @@ const registerVeterinary = async (req, res) => {
             const newVet = new Veterinary(req.body); // En req.body ya tenemos el objeto con los datos en cuestion, como estos respetan los nombres de las varaibles del modelo los asigna de forma automatica
             const savedVetInfo = await newVet.save();
             res.json(savedVetInfo);
+
+            //Enviamos email con token de confirmacion
+            
         }
         
     } catch (error) {

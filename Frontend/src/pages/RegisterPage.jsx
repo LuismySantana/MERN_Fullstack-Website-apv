@@ -47,14 +47,14 @@ const RegisterPage = () => {
 		try {
 			await registerNewUser(userName, userEmail, userPassword);
 			setWarning({
-				message: "Registrado correctamente - Revisa tu email",
+				message: "Registrado correctamente\nRevisa tu email",
 				error: false
 			});
 
 			
 		} catch (error) {
 			setWarning({
-				message: error.response.data.message,
+				message: error.response?.data.message || error.message,
 				error: true
 			});
 		}

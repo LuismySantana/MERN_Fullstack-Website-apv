@@ -70,12 +70,11 @@ const SetNewPasswordPage = () => {
 		setIsLoading(true);
 
 		try {
-			await resetPassword(email, token, newPassword);
+			const response = await resetPassword(email, token, newPassword);
 			setWarning({
-				message: "Contraseña modificada correctamente",
+				message: response.message,
 				error: false
 			});
-			setChangedPassword(true); // Si se modifico el password correctamente mostramos aviso y boton de volver a inicio
 
 		} catch (error) {
 			setWarning({
@@ -85,6 +84,8 @@ const SetNewPasswordPage = () => {
 
 		} finally {
 			setIsLoading(false);
+			setChangedPassword(true); // Si se modifico el password correctamente o hubo un error mostramos aviso y boton de volver a inicio
+
 		}
 
 		// TODO: 1.Terminar cambiado de contraseña (Falta hacer la api call y controlar el resultado) - Verificar caso de cambio de token/borrado de mail DURANTE el cambio de pwd. Revisa los msg y luego borra

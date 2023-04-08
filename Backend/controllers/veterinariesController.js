@@ -206,15 +206,11 @@ const resetPasswordAction = async (req, res) => {
     const response = {};
 
     try {
-        const userToReset = await Veterinary.findOne({email});
+        const userToReset = await Veterinary.findOne({email, token});
         
         if(!userToReset) {
-            response.status = 404;
-            response.message = "Usuario no encontrado";
-    
-        } else if (userToReset.token !== token) {
             response.status = 403;
-            response.message = "Token no válido";
+            response.message = "Ocurrió un error\nContacta con soporte";
     
         } else {
             userToReset.token = null;
@@ -223,7 +219,7 @@ const resetPasswordAction = async (req, res) => {
             await userToReset.save();
             
             response.status = 200;
-            response.message = "Conntraseña modificada correctamente";
+            response.message = "Contraseña modificada correctamente";
         }
         
     } catch (error) {

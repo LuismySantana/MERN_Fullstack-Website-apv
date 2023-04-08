@@ -42,8 +42,15 @@ const validatePasswordResetToken = async (email, token) => {
 }
 
 const resetPassword = async (email, token, password) => {
-    console.log("Reseting password...");
-    console.log(email, token, password);
+    const url = "/veterinaries/password-reset/reset";
+
+    const { data } = await axiosClient.post(url, {
+        email,
+        token,
+        password
+    });
+
+    return data;
 }
 
 const isValidPassword = (password) => {

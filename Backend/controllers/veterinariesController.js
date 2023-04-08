@@ -181,17 +181,13 @@ const validateResetToken = async (req, res) => {
     try {
         const userToReset = await Veterinary.findOne({email});
     
-        if(!userToReset) {
-            response.status = 404;
-            response.message = "Usuario no encontrado";
-    
-        } else if (userToReset.token !== token) {
+        if(!userToReset || userToReset.token !== token) {
             response.status = 403;
-            response.message = "Token no válido";
+            response.message = "Invalid token or email. Contact with support.";
 
         } else {
             response.status = 200;
-            response.message = "Permiso concedido";
+            // No es necesario message ya que es sólo un validador de acceso
         }
         
     } catch (error) {

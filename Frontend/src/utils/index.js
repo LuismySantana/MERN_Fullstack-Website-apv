@@ -35,10 +35,17 @@ const resetPasswordRequest = async (email) => {
     return data;    
 }
 
+const validatePasswordResetToken = async (email, token) => {
+    const url = `/veterinaries/password-reset/${email}/${token}`;
+
+    await axiosClient.get(url);
+}
+
 
 
 export {
     registerNewUser,
     verifyAccount,
-    resetPasswordRequest
+    resetPasswordRequest,
+    validatePasswordResetToken
 }

@@ -18,24 +18,21 @@ const ResetPasswordPage = () => {
 					className="flex flex-col"
 				>
 					<div className="mb-5">
-						<label
-							htmlFor="login_email"
-							className="uppercase text-gray-600 block text-xl font-bold"
-						>
+						<label className="uppercase text-gray-600 block text-xl font-bold">
 							Correo Electrónico:
+							<input
+								type="email"
+								placeholder="Introduce tu email"
+								className="border-2 rounded-md w-full p-3 mt-3 text-base font-normal bg-gray-50"
+								// value={userEmail}
+								onChange={e => setUserEmail(e.target.value.trim())}
+							/>
 						</label>
-						<input
-							type="email"
-							placeholder="Introduce tu email"
-							id="reset_password_email"
-							className="border-2 rounded-md w-full p-3 mt-3 bg-gray-50"
-						/>
 					</div>
 
 					<input
 						type="submit"
 						value="Recuperar contraseña"
-						id="reset_password_submit"
 						className="w-full md:w-auto py-3 px-10 mt-10 block mx-auto rounded-md
                                 bg-indigo-700 text-white uppercase font-bold tracking-wide transition-colors duration-300
                                 hover:bg-indigo-800 hover:cursor-pointer"

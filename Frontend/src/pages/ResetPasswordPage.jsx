@@ -25,9 +25,9 @@ const ResetPasswordPage = () => {
 		setWarning(null);
 		
 		try {
-			await resetPasswordRequest(emailReset);
+			const response = await resetPasswordRequest(emailReset);
 			setWarning({
-				message: "Hemos enviado las instrucciones a tu email",
+				message: response.message,
 				error: false
 			});
 

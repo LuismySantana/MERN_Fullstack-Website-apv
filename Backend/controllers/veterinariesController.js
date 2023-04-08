@@ -151,7 +151,11 @@ const resetPasswordRequest = async (req, res) => {
             await userToReset.save();
 
             // Enviamos mail de password reset
-            sendResetPasswordEmail(userToReset);
+            sendResetPasswordEmail({
+                name: userToReset.name,
+                token: userToReset.token,
+                email
+            });
 
             response.status = 200;
             response.message = "Te hemos enviado un email con las instrucciones";

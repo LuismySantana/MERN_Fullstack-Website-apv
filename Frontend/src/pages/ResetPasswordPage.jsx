@@ -1,15 +1,44 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-
+import FormWarning from "../components/FormWarning";
+import { resetPasswordRequest } from "../utils";
 
 
 const ResetPasswordPage = () => {
 	const [ emailReset, setEmailReset ] = useState("");
+	const [ warning, setWarning ] = useState(null);
 
-	const handleSubmit = (e) => {
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		console.log("Enviando reset request...");
+
+		if (emailReset === "") {
+			setWarning({
+				message: "Debes introducir tu email",
+				error: true
+			});
+			return;
+		}
+
+		setWarning(null);
+		
+		try {
+			await resetPasswordRequest(emailReset);
+			setWarning({
+				message: "Hemos enviado las instrucciones a tu email",
+				error: false
+			});
+
+			
+		} catch (error) {
+			setWarning({
+				message: error.response?.data.message || error.message,
+				error: true
+			});
+		}
+
 	}
 	
 	
@@ -27,6 +56,13 @@ const ResetPasswordPage = () => {
 					className="flex flex-col"
 					onSubmit={handleSubmit}
 				>
+					
+					{warning && (
+						<FormWarning 
+							warning={warning}
+						/>
+					)}
+
 					<div className="mb-5">
 						<label className="uppercase text-gray-600 block text-xl font-bold">
 							Correo Electrónico:

@@ -10,7 +10,9 @@ import Veterinary from "../models/Veterinary.js";
 
 const registerVeterinary = async (req, res) => {
     try {
-        // El mail es unico, asi que debemos revisar si 
+        // El mail es unico, asi que debemos revisar si el usuario ya existe
+        req.body.email = req.body.email.toLowerCase(); // Forzamos el lower case del email para evitar el case sensitive en estos en todos los casos
+
         const { email, name } = req.body;
         const emailExists = await Veterinary.findOne({email}) // email: email --> email | findOne me devuelve el primer registro que cumpla x condicion, si no hubiera, deuvelve null
 
@@ -45,6 +47,7 @@ const verifyVeterinaryTokken = async (req, res) => {
     const response = {};
 
     try {
+        req.params.email = req.params.email.toLowerCase();
         const { email, token } = req.params;
 
         const userToVerify = await Veterinary.findOne({email});
@@ -86,7 +89,7 @@ const loginVeterinary = async (req, res) => {
     const response = {};
 
     try {
-
+        // TODO: req.body.email = req.body.email.toLowerCase(); --> VERIFICAR
         const { email, password } = req.body;
 
         const logUser = await Veterinary.findOne({ email }); 
@@ -131,7 +134,7 @@ const getVeterinaryProfile = (req, res) => {
 
 // El usuario envía su email para resetear la contraseña y le envia email con su token
 const resetPasswordRequest = async (req, res) => {
-    const email = req.body.email;
+    const email = req.body.email.toLowerCase();
     const response = {};
 
     try {
@@ -175,6 +178,7 @@ const resetPasswordRequest = async (req, res) => {
 
 // Validamos el token del usuario cuando trata de acceder a la página de cambiar su password
 const validateResetToken = async (req, res) => {
+    req.params.email = req.params.email.toLowerCase();
     const { email, token } = req.params;
     const response = {};
 
@@ -202,6 +206,7 @@ const validateResetToken = async (req, res) => {
 
 // Modificamos el password (volviendo a revisar el token)
 const resetPasswordAction = async (req, res) => {
+    req.body.email = req.body.email.toLowerCase();
     const { email, token, password } = req.body;
     const response = {};
 

@@ -173,7 +173,7 @@ const resetPasswordRequest = async (req, res) => {
 }
 
 
-// Validamos el token del usuario cuando trata de cambiar su password
+// Validamos el token del usuario cuando trata de acceder a la página de cambiar su password
 const validateResetToken = async (req, res) => {
     const { email, token } = req.params;
     const response = {};
@@ -200,6 +200,7 @@ const validateResetToken = async (req, res) => {
 }
 
 
+// Modificamos el password (volviendo a revisar el token)
 const resetPasswordAction = async (req, res) => {
     const { email, token, password } = req.body;
     const response = {};

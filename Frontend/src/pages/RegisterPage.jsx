@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { useState } from "react";
 import FormWarning from "../components/FormWarning";
-import { registerNewUser } from "../utils";
+import { registerNewUser, isValidPassword } from "../utils";
 
 
 
@@ -58,11 +58,6 @@ const RegisterPage = () => {
 				error: true
 			});
 		}
-	}
-
-	const isValidPassword = (password) => {
-		var passwordRegex = new RegExp(`^(?=.*[a-zA-Z])(?=.*[0-9])(?=.{6,})`); // Minimo una letra, un numero y 6 digitos
-		return passwordRegex.test(password);
 	}
 	
 	

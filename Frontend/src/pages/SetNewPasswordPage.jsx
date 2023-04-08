@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { validatePasswordResetToken } from "../utils";
+import { validatePasswordResetToken, isValidPassword } from "../utils";
 import Spinner from "../components/Spinner";
+import FormWarning from "../components/FormWarning";
 
 
 
 const SetNewPasswordPage = () => {
 	const [ newPassword, setNewPassword ] = useState("");
 	const [ newPasswordRepeat, setNewPasswordRepeat ] = useState("");
-	const [isLoading, setIsLoading] = useState(true);
+	const [ isLoading, setIsLoading ] = useState(true);
+	const [ warning, setWarning ] = useState(null);
 
 	const { email, token } = useParams();
 
@@ -33,6 +35,38 @@ const SetNewPasswordPage = () => {
 		validateResetToken();
 		
 	}, []);
+
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		if ([newPassword, newPasswordRepeat].includes("")) {
+			setWarning({
+				message: "Todos los campos son obligatorios",
+				error: true
+			});
+			return;
+		}
+		
+		if(newPassword !== newPasswordRepeat) {
+			setWarning({
+				message: "Las contraseñas deben ser iguales",
+				error: true
+			});
+			return;
+		}
+		
+		if (!isValidPassword(newPassword)) {
+			setWarning({
+				message: "La contraseña debe tener mínimo una letra, un número y 6 caracteres",
+				error: true
+			});
+			return;
+		}
+
+		setWarning(null);
+		console.log("Change pwd");
+	}
 	
 
 	return (
@@ -50,9 +84,15 @@ const SetNewPasswordPage = () => {
 					<Spinner />
 				):(
 					<form
-						action=""
 						className="flex flex-col"
+						onSubmit={handleSubmit}
 					>
+
+						{warning && (
+							<FormWarning 
+								warning={warning}
+							/>
+						)}
 
 						<div className="mb-5">
 							<label

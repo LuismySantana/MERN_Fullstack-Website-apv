@@ -52,16 +52,17 @@ const ResetPasswordPage = () => {
 			</div>
 
 			<div className="bg-white p-10 shadow-lg rounded-md">
+					
+				{ warning && (
+					<FormWarning 
+						warning={warning}
+					/>
+				)}
+
 				<form
 					className="flex flex-col"
 					onSubmit={handleSubmit}
 				>
-					
-					{warning && (
-						<FormWarning 
-							warning={warning}
-						/>
-					)}
 
 					<div className="mb-5">
 						<label className="uppercase text-gray-600 block text-xl font-bold">

@@ -88,11 +88,7 @@ const SetNewPasswordPage = () => {
 
 		}
 
-		// TODO: 1.Terminar cambiado de contraseña (Falta hacer la api call y controlar el resultado) - Verificar caso de cambio de token/borrado de mail DURANTE el cambio de pwd. Revisa los msg y luego borra
-		// TODO: 2.Cambiar las queries de password reset, puedes hacerlas con token + email en vez de solo email
-		// TODO: 3.Los email son case sensitive, modificalos en todos lados del back para hacerlos insensitive
-		// TODO: 4.Realizar el modificado de password
-		// TODO: 5. Cambiar los warnings a ponerlos fuera de los form, justo encima
+		// TODO: Los email son case sensitive, modificalos en todos lados del back para hacerlos insensitive
 	}
 	
 

@@ -1,8 +1,18 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
 
 
 
 const ResetPasswordPage = () => {
+	const [ emailReset, setEmailReset ] = useState("");
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		console.log("Enviando reset request...");
+	}
+	
+	
 	return (
 		<>
 			<div>
@@ -14,8 +24,8 @@ const ResetPasswordPage = () => {
 
 			<div className="bg-white p-10 shadow-lg rounded-md">
 				<form
-					action=""
 					className="flex flex-col"
+					onSubmit={handleSubmit}
 				>
 					<div className="mb-5">
 						<label className="uppercase text-gray-600 block text-xl font-bold">
@@ -24,8 +34,8 @@ const ResetPasswordPage = () => {
 								type="email"
 								placeholder="Introduce tu email"
 								className="border-2 rounded-md w-full p-3 mt-3 text-base font-normal bg-gray-50"
-								// value={userEmail}
-								onChange={e => setUserEmail(e.target.value.trim())}
+								value={emailReset}
+								onChange={e => setEmailReset(e.target.value)}
 							/>
 						</label>
 					</div>

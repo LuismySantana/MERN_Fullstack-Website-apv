@@ -3,6 +3,7 @@
 import generateJWT from "../helpers/generateJWT.js";
 import generateToken from "../helpers/generateToken.js";
 import sendRegisterEmail from "../helpers/sendRegisterEmail.js";
+import sendResetPasswordEmail from "../helpers/sendResetPasswordEmail.js";
 import Veterinary from "../models/Veterinary.js";
 
 
@@ -128,7 +129,7 @@ const getVeterinaryProfile = (req, res) => {
 }
 
 
-// El usuario envía el su email para resetear la contraseña y le envia email con su token
+// El usuario envía su email para resetear la contraseña y le envia email con su token
 const resetPasswordRequest = async (req, res) => {
     const email = req.body.email;
     const response = {};
@@ -138,19 +139,22 @@ const resetPasswordRequest = async (req, res) => {
 
         if (!userToReset) {
             response.status = 404;
-            response.message = "User not found";
+            response.message = "Usuario no encontrado";
 
         } else if (!userToReset.validatedUser) {
             response.status = 403;
-            response.message = "User email not validated yet";
+            response.message = "Usuario no validado aún";
 
         } else {
             // Ya que ya tenemos el registro de token, podemos aprovecharlo para este caso y no afectaría con el que tenemos para validacion de email puesto que 1º siempre se revisa si el mail ya esta verificado
             userToReset.token = generateToken();
             await userToReset.save();
 
+            // Enviamos mail de password reset
+            sendResetPasswordEmail(userToReset);
+
             response.status = 200;
-            response.message = "We have sent an email with the instructions.";
+            response.message = "Te hemos enviado un email con las instrucciones";
             
         }
         
@@ -175,15 +179,15 @@ const validateResetToken = async (req, res) => {
     
         if(!userToReset) {
             response.status = 404;
-            response.message = "User not found";
+            response.message = "Usuario no encontrado";
     
         } else if (userToReset.token !== token) {
             response.status = 403;
-            response.message = "Invalid token";
+            response.message = "Token no válido";
 
         } else {
             response.status = 200;
-            response.message = "Valid token";
+            response.message = "Permiso concedido";
         }
         
     } catch (error) {
@@ -205,11 +209,11 @@ const resetPasswordAction = async (req, res) => {
         
         if(!userToReset) {
             response.status = 404;
-            response.message = "User not found";
+            response.message = "Usuario no encontrado";
     
         } else if (userToReset.token !== token) {
             response.status = 403;
-            response.message = "Invalid token";
+            response.message = "Token no válido";
     
         } else {
             userToReset.token = null;
@@ -218,7 +222,7 @@ const resetPasswordAction = async (req, res) => {
             await userToReset.save();
             
             response.status = 200;
-            response.message = "Password changed successfully.";
+            response.message = "Conntraseña modificada correctamente";
         }
         
     } catch (error) {

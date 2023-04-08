@@ -32,7 +32,7 @@ const SetNewPasswordPage = () => {
 								placeholder="Introduce tu contraseña"
 								className="border-2 rounded-md w-full p-3 mt-3 text-base font-normal bg-gray-50"
 								value={newPassword}
-								onChange={e => setNewPassword(e.target.value.trim())}
+								onChange={e => setNewPassword(e.target.value)}
 							/>
 						</label>
 					</div>
@@ -47,7 +47,7 @@ const SetNewPasswordPage = () => {
 								placeholder="Repite tu contraseña"
 								className="border-2 rounded-md w-full p-3 mt-3 text-base font-normal bg-gray-50"
 								value={newPasswordRepeat}
-								onChange={e => setNewPasswordRepeat(e.target.value.trim())}
+								onChange={e => setNewPasswordRepeat(e.target.value)}
 							/>
 						</label>
 					</div>

@@ -179,9 +179,9 @@ const validateResetToken = async (req, res) => {
     const response = {};
 
     try {
-        const userToReset = await Veterinary.findOne({email});
+        const userToReset = await Veterinary.findOne({email, token});
     
-        if(!userToReset || userToReset.token !== token) {
+        if(!userToReset) {
             response.status = 403;
             response.message = "Invalid token or email. Contact with support.";
 

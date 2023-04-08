@@ -41,6 +41,11 @@ const validatePasswordResetToken = async (email, token) => {
     await axiosClient.get(url);
 }
 
+const resetPassword = async (email, token, password) => {
+    console.log("Reseting password...");
+    console.log(email, token, password);
+}
+
 const isValidPassword = (password) => {
     var passwordRegex = new RegExp(`^(?=.*[a-zA-Z])(?=.*[0-9])(?=.{6,})`); // Minimo una letra, un numero y 6 digitos
     return passwordRegex.test(password);
@@ -53,5 +58,6 @@ export {
     verifyAccount,
     resetPasswordRequest,
     validatePasswordResetToken,
-    isValidPassword
+    isValidPassword,
+    resetPassword
 }

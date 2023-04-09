@@ -8,24 +8,28 @@ import RegisterPage from './pages/RegisterPage'
 import ConfirmEmailPage from './pages/ConfirmEmailPage'
 import ResetPasswordPage from './pages/ResetPasswordPage'
 import SetNewPasswordPage from './pages/SetNewPasswordPage'
+import { SessionProvider } from './context/SessionProvider'
+
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <BrowserRouter>
-        <Routes>
+	<React.StrictMode>
+		<BrowserRouter>
+			<SessionProvider>
+				<Routes>
 
-          <Route path='/' element={<AuthLayout />}>
-            <Route index element={<LoginPage />} />
-            <Route path='register' element={<RegisterPage />} />
-            <Route path='confirm-email/:email/:token' element={<ConfirmEmailPage />} />
-            <Route path='reset-password' element={<ResetPasswordPage />} />
-            <Route path='reset-password/:email/:token' element={<SetNewPasswordPage />} />
-          </Route>
+					<Route path='/' element={<AuthLayout />}>
+						<Route index element={<LoginPage />} />
+						<Route path='register' element={<RegisterPage />} />
+						<Route path='confirm-email/:email/:token' element={<ConfirmEmailPage />} />
+						<Route path='reset-password' element={<ResetPasswordPage />} />
+						<Route path='reset-password/:email/:token' element={<SetNewPasswordPage />} />
+					</Route>
 
-          <Route path='*' element={<h1>Page not found</h1>} />
+					<Route path='*' element={<h1>Page not found</h1>} />
 
-        </Routes>
-    </BrowserRouter>
-  </React.StrictMode>,
+				</Routes>
+			</SessionProvider>
+		</BrowserRouter>
+	</React.StrictMode>,
 )

@@ -58,6 +58,16 @@ const isValidPassword = (password) => {
     return passwordRegex.test(password);
 }
 
+const userLogin = async (email, password) => {
+    const url = "/veterinaries/login";
+
+    const { data } = await axiosClient.post(url, {
+        email,
+        password
+    });
+
+    return data;
+}
 
 
 export {
@@ -66,5 +76,6 @@ export {
     resetPasswordRequest,
     validatePasswordResetToken,
     isValidPassword,
-    resetPassword
+    resetPassword,
+    userLogin
 }

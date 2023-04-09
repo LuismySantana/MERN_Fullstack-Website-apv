@@ -95,20 +95,19 @@ const loginVeterinary = async (req, res) => {
         const logUser = await Veterinary.findOne({ email }); 
 
         if (!logUser) {
-            response.status = 403;
-            response.message = "The user does not exists";
-
-        } else if (!logUser.validatedUser) {
-            response.status = 403;
-            response.message = "This user email is not validated yet";
+            response.status = 404;
+            response.message = "Este usuario no existe";
 
         } else if (!await logUser.checkPassword(password)) {
             response.status = 403;
-            response.message = "Incorrect password";
+            response.message = "Contraseña incorrecta";
             
+        } else if (!logUser.validatedUser) {
+            response.status = 403;
+            response.message = "Este usuario no está validado todavía";
+
         } else {
             response.status = 200;
-            response.message = "User logged correctly";
             response.token = generateJWT(logUser.id);
         }
 

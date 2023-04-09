@@ -5,7 +5,7 @@
     ?   2- Crear un proveedor de ese contexto (es decir, el que dará acceso al contexto al resto de partes de la app). Para eso creamos un "componente" que será el Provider del contexto y que tendrá de hijos al resto de la aplicación (todas las rutas pero DENTRO del router del buscador)
     ?   3- Para poder acceder a los datos del contexto hay diversas formas, la mejor es hacer un custom hook
     ?   4- En el value de Context provider especificamos QUÉ ELEMENTOS del contexto queremos hacer visibles a la aplicación. Luego con useContext (en nuestro hook) podremos acceder a todos los valores del Provider
-    ?
+    ?   5- Usamos el contexto mediante llamar a nuestro custom hook y recoger los elementos que nos hagan falta, con deconstructuring por ejemplo
 */
 
 import { useState, useEffect, createContext } from "react";
@@ -14,13 +14,10 @@ import { useState, useEffect, createContext } from "react";
 
 const SessionContext = createContext();
 
-//? Mediante el prop children recogemos todo aquello que este entre las llaves de abertura/cierre del componente. En este caso, las rutas con todos los componentes que queremos que tengan acceso al context
-const SessionProvider = ({children}) => {
 
-    //? Aquí definiremos todos los estados y funciones del contexto
+const SessionProvider = ({children}) => {           //? Mediante el prop children recogemos todo aquello que este entre las llaves de abertura/cierre del componente. En este caso, las rutas con todos los componentes que queremos que tengan acceso al context
 
     const [ session, setSession ] = useState({});
-
 
     return (
         <SessionContext.Provider

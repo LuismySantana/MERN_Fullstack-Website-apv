@@ -1,8 +1,15 @@
 import { Link } from "react-router-dom"
-
+import FormWarning from "../components/FormWarning"
 
 
 const LoginPage = () => {
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("Iniciando sesión...");
+    }
+
+
     return (
         <>
             <div>
@@ -14,43 +21,38 @@ const LoginPage = () => {
 
             <div className="bg-white p-10 shadow-lg rounded-md">
                 <form
-                    action=""
                     className="flex flex-col"
+                    onSubmit={handleSubmit}
                 >
                     <div className="mb-5">
                         <label 
-                            htmlFor="login_email"
                             className="uppercase text-gray-600 block text-xl font-bold"
                         >
                             Correo Electrónico:
+                            <input
+                                type="email"
+                                placeholder="Introduce tu email"
+                                className="border-2 rounded-md w-full p-3 mt-3 text-base font-normal bg-gray-50"
+                            />
                         </label>
-                        <input
-                            type="email"
-                            placeholder="Introduce tu email"
-                            id="login_email"
-                            className="border-2 rounded-md w-full p-3 mt-3 bg-gray-50"
-                        />
                     </div>
                     
                     <div className="my-5">
                         <label 
-                            htmlFor="login_password"
                             className="uppercase text-gray-600 block text-xl font-bold"
                         >
                             Contraseña:
+                            <input
+                                type="password"
+                                placeholder="Introduce tu contraseña"
+                                className="border-2 rounded-md w-full p-3 mt-3 text-base font-normal bg-gray-50"
+                            />
                         </label>
-                        <input
-                            type="password"
-                            placeholder="Introduce tu contraseña"
-                            id="login_password"
-                            className="border-2 rounded-md w-full p-3 mt-3 bg-gray-50"
-                        />
                     </div>
 
                     <input
                         type="submit"
                         value="Iniciar sesión"
-                        id="login_submit"
                         className="w-full md:w-auto py-3 px-10 mt-10 block mx-auto rounded-md
                                 bg-indigo-700 text-white uppercase font-bold tracking-wide transition-colors duration-300
                                 hover:bg-indigo-800 hover:cursor-pointer"

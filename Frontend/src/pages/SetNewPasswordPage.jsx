@@ -87,8 +87,6 @@ const SetNewPasswordPage = () => {
 			setChangedPassword(true); // Si se modifico el password correctamente o hubo un error mostramos aviso y boton de volver a inicio
 
 		}
-
-		// TODO: Los email son case sensitive, modificalos en todos lados del back para hacerlos insensitive
 	}
 	
 

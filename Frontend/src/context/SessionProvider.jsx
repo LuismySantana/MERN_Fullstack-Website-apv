@@ -4,7 +4,7 @@
     ?   1- Crear un context con createContext()
     ?   2- Crear un proveedor de ese contexto (es decir, el que dará acceso al contexto al resto de partes de la app). Para eso creamos un "componente" que será el Provider del contexto y que tendrá de hijos al resto de la aplicación (todas las rutas pero DENTRO del router del buscador)
     ?   3- Para poder acceder a los datos del contexto hay diversas formas, la mejor es hacer un custom hook
-    ?   4-
+    ?   4- En el value de Context provider especificamos QUÉ ELEMENTOS del contexto queremos hacer visibles a la aplicación. Luego con useContext (en nuestro hook) podremos acceder a todos los valores del Provider
     ?
 */
 
@@ -23,7 +23,12 @@ const SessionProvider = ({children}) => {
 
 
     return (
-        <SessionContext.Provider>
+        <SessionContext.Provider
+            value={{
+                session,
+                setSession
+            }}
+        >
             {children}
         </SessionContext.Provider>
     )

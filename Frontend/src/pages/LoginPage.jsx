@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom"
 import FormWarning from "../components/FormWarning"
-
+import useSession from "../hooks/useSession"
 
 const LoginPage = () => {
+
+    const { session, setSession } = useSession();
+
+    console.log(session);
+
 
     const handleSubmit = (e) => {
         e.preventDefault();

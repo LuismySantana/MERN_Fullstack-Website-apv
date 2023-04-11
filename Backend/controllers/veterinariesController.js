@@ -89,7 +89,7 @@ const loginVeterinary = async (req, res) => {
     const response = {};
 
     try {
-        // TODO: req.body.email = req.body.email.toLowerCase(); --> VERIFICAR
+        req.body.email = req.body.email.toLowerCase();
         const { email, password } = req.body;
 
         const logUser = await Veterinary.findOne({ email }); 

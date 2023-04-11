@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom"
-import { useState } from "react"
-import FormWarning from "../components/FormWarning"
-import Spinner from "../components/Spinner"
-import useSession from "../hooks/useSession"
-import { userLogin } from "../utils"
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import FormWarning from "../components/FormWarning";
+import Spinner from "../components/Spinner";
+import useSession from "../hooks/useSession";
+import { userLogin } from "../utils";
 
 const LoginPage = () => {
     const [ email, setEmail ] = useState("");
@@ -11,7 +11,7 @@ const LoginPage = () => {
     const [ warning, setWarning ] = useState(null);
     const [ isLoading, setIsLoading ] = useState(false);
 
-    // const { session, setSession } = useSession();
+    const { session, setSession } = useSession();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -128,4 +128,4 @@ const LoginPage = () => {
 
 
 
-export default LoginPage
+export default LoginPage;

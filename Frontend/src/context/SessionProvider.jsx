@@ -63,10 +63,6 @@ const SessionProvider = ({children}) => {           //? Mediante el prop childre
         localStorage.removeItem("apv_sToken");
     }
 
-    const isSessionActive = () => {
-        return Object.keys(session).length > 0;
-    }
-    
     
     return (
         <SessionContext.Provider
@@ -74,8 +70,7 @@ const SessionProvider = ({children}) => {           //? Mediante el prop childre
                 session,
                 sessionLogIn,
                 sessionLogOut,
-                isLogging,
-                isSessionActive
+                isLogging
             }}
         >
             {children}

@@ -6,7 +6,7 @@ import useSession from "../hooks/useSession";
 
 const AdminLayout = () => {
 
-    const { isLogging, isSessionActive } = useSession();
+    const { session, isLogging } = useSession();
 
     if (isLogging) {
         return (
@@ -16,7 +16,7 @@ const AdminLayout = () => {
         )
     }
 
-    if (!isSessionActive()) {
+    if (!session._id) { //session siempre existe como objeto vacío (como mínimo), por tanto llamar a su referencia nunca fallará. _id es un primitivo, si no existe resultará en undefined (falsy)
         return (
             <Navigate to={"/"} />
         )

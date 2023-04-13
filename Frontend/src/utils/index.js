@@ -69,6 +69,22 @@ const userLogin = async (email, password) => {
     return data;
 }
 
+const getVetProfile = async (sToken) => {
+    const url = "/veterinaries/profile";
+
+    // Para añadir la autorizacion Bearer reescribimos el header de la peticion
+    const config = {
+        headers: {
+            "Contet-Type": "application/json",
+            "Authorization": `Bearer ${sToken}`
+        }
+    }
+
+    const { data } = await axiosClient.get(url, config);
+
+    return data;
+}
+
 
 export {
     registerNewUser,
@@ -77,5 +93,6 @@ export {
     validatePasswordResetToken,
     isValidPassword,
     resetPassword,
-    userLogin
+    userLogin,
+    getVetProfile
 }

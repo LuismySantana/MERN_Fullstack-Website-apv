@@ -11,7 +11,7 @@ const LoginPage = () => {
     const [ warning, setWarning ] = useState(null);
     const [ isLoading, setIsLoading ] = useState(false);
 
-    const { session, setSession } = useSession();
+    const { sessionLogIn } = useSession();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -30,7 +30,9 @@ const LoginPage = () => {
         
         try {
 			const { token } = await userLogin(email, password);
-            console.log(token); // Si muestra el token en consola, se inicio sesion correctamente
+            
+            // Si se generó el token correctamente, iniciamos sesión
+            sessionLogIn(token);
 						
 		} catch (error) {
 			setWarning({
@@ -42,6 +44,7 @@ const LoginPage = () => {
             setIsLoading(false);
         }
     }
+
 
     return (
         <>

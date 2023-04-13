@@ -14,10 +14,17 @@ const checkAuthentication = async (req, res, next) => {
             const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
             try {
-                req.loggedVet = await Veterinary.findById(decoded.id).select(   // Así es como: 1. Guardamos los datos en mi request para poder tener una "sesion" del usuario en el siguiente middleware; 2. Filtramos datos de una consulta con .select()
+                const loggedVet = await Veterinary.findById(decoded.id).select(   // Así es como: 1. Guardamos los datos en mi request para poder tener una "sesion" del usuario en el siguiente middleware; 2. Filtramos datos de una consulta con .select()
                     "-password -token -validatedUser"
                 );
-                next();
+
+                if (loggedVet) {
+                    req.loggedVet = loggedVet;
+                    next();
+
+                } else {
+                    throw new Error("User not found")
+                }
                 
             } catch (error) {
                 response.status = 500;

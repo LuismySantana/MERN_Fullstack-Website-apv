@@ -9,7 +9,7 @@
 */
 
 import { useState, useEffect, createContext } from "react";
-
+import { getVetProfile } from "../utils";
 
 
 const SessionContext = createContext();
@@ -19,11 +19,49 @@ const SessionProvider = ({children}) => {           //? Mediante el prop childre
 
     const [ session, setSession ] = useState({});
 
+    useEffect(() => {
+        checkVetSessionToken();
+        
+    }, []);
+
+
+    const checkVetSessionToken = () => {
+        const sToken = localStorage.getItem("apv_sToken");
+
+        if (sToken) {
+            sessionLogIn(sToken);   
+        }
+    }
+    
+    const sessionLogIn = async (sToken) => {   
+        console.log("Iniciando sesion...");
+        try {
+            const { vetProfile } = await getVetProfile(sToken);
+            console.log( vetProfile );
+
+            setSession(vetProfile);
+            localStorage.setItem("apv_sToken", sToken);
+            
+        } catch (error) {
+            console.log(error.response.data.message);
+            sessionLogOut();
+        }
+    }
+
+    const sessionLogOut = () => {
+        console.log("Cerrando sesion...");
+
+        setSession({});
+        localStorage.removeItem("apv_sToken");
+    }
+
+
     return (
         <SessionContext.Provider
             value={{
                 session,
-                setSession
+                sessionLogIn,
+                sessionLogOut
             }}
         >
             {children}

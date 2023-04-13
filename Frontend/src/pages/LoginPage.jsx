@@ -18,7 +18,7 @@ const LoginPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if(email === "" || password === "") {
+        if (email === "" || password === "") {
             setWarning({
                 message: "Todos los campos son obligatorios",
                 error: true

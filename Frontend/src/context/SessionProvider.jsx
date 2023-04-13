@@ -55,6 +55,8 @@ const SessionProvider = ({children}) => {           //? Mediante el prop childre
         localStorage.removeItem("apv_sToken");
     }
 
+    // TODO: Hacer en context funcion isSessionActive() para no acceder a la variable session publicamente
+
 
     return (
         <SessionContext.Provider

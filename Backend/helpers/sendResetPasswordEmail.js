@@ -24,7 +24,7 @@ const sendResetPasswordEmail = async (userData) => {
 		html: `
 			<h3>¡Hola ${name}!</h3>
 			<p>Has solicitado recupear tu contraseña para APV, haz click aquí para hacerlo:
-				<a href="${process.env.FRONTEND_URL}/reset-password/${email}/${token}" target="_blank">Recuperar contraseña</a>
+				<a href="${process.env.FRONTEND_URL}/reset-password/${email}/${token}">Recuperar contraseña</a>
 			</p>
 			
 			<p>Si tu no has solicitado un cambio de contraseña en APV, ignora este mensaje.</p>

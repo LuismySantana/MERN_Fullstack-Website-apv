@@ -24,7 +24,7 @@ const sendRegisterEmail = async (userData) => {
 		html: `
 			<h3>¡Bienvenido ${name}!</h3>
 			<p>Verifica tu cuenta para APV clicando en este enlace:
-				<a href="${process.env.FRONTEND_URL}/confirm-email/${email}/${token}" target="_blank">Verifica tu cuenta</a>
+				<a href="${process.env.FRONTEND_URL}/confirm-email/${email}/${token}">Verifica tu cuenta</a>
 			</p>
 			
 			<p>Si tu no has creado una cuenta en APV, ignora este mensaje.</p>

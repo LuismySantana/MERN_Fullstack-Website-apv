@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import AuthLayout from './layouts/AuthLayout'
+import AdminLayout from './layouts/AdminLayout'
 import LoginPage from "./pages/LoginPage"
 import './styles/index.css'
 import RegisterPage from './pages/RegisterPage'
@@ -24,6 +25,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 						<Route path='confirm-email/:email/:token' element={<ConfirmEmailPage />} />
 						<Route path='reset-password' element={<ResetPasswordPage />} />
 						<Route path='reset-password/:email/:token' element={<SetNewPasswordPage />} />
+					</Route>
+
+					<Route path="/admin" element={<AdminLayout />}>
+						<Route index element={<h1>Pagina principal</h1>} />
+
 					</Route>
 
 					<Route path='*' element={<h1>Page not found</h1>} />

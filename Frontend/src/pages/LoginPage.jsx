@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import FormWarning from "../components/FormWarning";
 import Spinner from "../components/Spinner";
@@ -10,6 +10,8 @@ const LoginPage = () => {
     const [ password, setPassword ] = useState("");
     const [ warning, setWarning ] = useState(null);
     const [ isLoading, setIsLoading ] = useState(false);
+
+    const goTo = useNavigate();
 
     const { sessionLogIn } = useSession();
 
@@ -33,6 +35,7 @@ const LoginPage = () => {
             
             // Si se generó el token correctamente, iniciamos sesión
             sessionLogIn(token);
+            goTo("/admin");
 						
 		} catch (error) {
 			setWarning({

@@ -18,6 +18,7 @@ const SessionContext = createContext();
 const SessionProvider = ({children}) => {           //? Mediante el prop children recogemos todo aquello que este entre las llaves de abertura/cierre del componente. En este caso, las rutas con todos los componentes que queremos que tengan acceso al context
 
     const [ session, setSession ] = useState({});
+    const [ isLogging, setIsLogging ] = useState(true);
 
     useEffect(() => {
         checkVetSessionToken();
@@ -29,15 +30,19 @@ const SessionProvider = ({children}) => {           //? Mediante el prop childre
         const sToken = localStorage.getItem("apv_sToken");
 
         if (sToken) {
-            sessionLogIn(sToken);   
+            sessionLogIn(sToken);
+
+        } else {
+            setIsLogging(false);
         }
     }
     
-    const sessionLogIn = async (sToken) => {   
+    const sessionLogIn = async (sToken) => {
         console.log("Iniciando sesion...");
+        setIsLogging(true);
+        
         try {
             const { vetProfile } = await getVetProfile(sToken);
-            console.log( vetProfile );
 
             setSession(vetProfile);
             localStorage.setItem("apv_sToken", sToken);
@@ -45,6 +50,9 @@ const SessionProvider = ({children}) => {           //? Mediante el prop childre
         } catch (error) {
             console.log(error.response.data.message);
             sessionLogOut();
+
+        } finally {
+            setIsLogging(false);
         }
     }
 
@@ -55,15 +63,19 @@ const SessionProvider = ({children}) => {           //? Mediante el prop childre
         localStorage.removeItem("apv_sToken");
     }
 
-    // TODO: Hacer en context funcion isSessionActive() para no acceder a la variable session publicamente
-
-
+    const isSessionActive = () => {
+        return Object.keys(session).length > 0;
+    }
+    
+    
     return (
         <SessionContext.Provider
             value={{
                 session,
                 sessionLogIn,
-                sessionLogOut
+                sessionLogOut,
+                isLogging,
+                isSessionActive
             }}
         >
             {children}

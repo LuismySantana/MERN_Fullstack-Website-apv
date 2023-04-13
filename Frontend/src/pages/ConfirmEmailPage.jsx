@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom"
-import { verifyAccount } from "../utils";
 import FormWarning from "../components/FormWarning";
 import Spinner from "../components/Spinner";
+import { verifyAccount } from "../utils";
 
 const ConfirmEmailPage = () => {
 	const [ warning, setWarning ] = useState(null);

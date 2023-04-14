@@ -1,6 +1,8 @@
 import { Outlet, Navigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import useSession from "../hooks/useSession";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 
 
@@ -23,9 +25,10 @@ const AdminLayout = () => {
 	}
 
 	return (
-		<main className='container mx-auto md:grid md:grid-cols-2 py-10 px-5 md:py-0 gap-10 min-h-screen items-center'>
-			<h1>Zona admin</h1>
+		<main className=''>
+			<Header />
 			<Outlet />
+			<Footer />
 		</main>
 	)
 }

@@ -29,6 +29,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 					<Route path="/admin" element={<AdminLayout />}>
 						<Route index element={<h1>Pagina principal</h1>} />
+						<Route path='profile' element={<h1>Perfil de veterinario</h1>} />
 
 					</Route>
 

@@ -10,6 +10,7 @@ import ConfirmEmailPage from './pages/ConfirmEmailPage'
 import ResetPasswordPage from './pages/ResetPasswordPage'
 import SetNewPasswordPage from './pages/SetNewPasswordPage'
 import './styles/index.css'
+import AdminPacientsPage from './pages/AdminPacientsPage'
 
 
 
@@ -28,7 +29,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 					</Route>
 
 					<Route path="/admin" element={<AdminLayout />}>
-						<Route index element={<h1>Pagina principal</h1>} />
+						<Route index element={<AdminPacientsPage />} />
 						<Route path='profile' element={<h1>Perfil de veterinario</h1>} />
 
 					</Route>

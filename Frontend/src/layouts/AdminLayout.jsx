@@ -25,11 +25,13 @@ const AdminLayout = () => {
 	}
 
 	return (
-		<main className=''>
+		<>
 			<Header />
-			<Outlet />
+			<main className='container mx-auto mt-10'>
+				<Outlet />
+			</main>
 			<Footer />
-		</main>
+		</>
 	)
 }
 

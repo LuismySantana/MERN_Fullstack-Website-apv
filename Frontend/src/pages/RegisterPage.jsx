@@ -163,6 +163,7 @@ const RegisterPage = () => {
 	)
 }
 
+// TODO: Descomentar los values tanto aqui como en el resto de forms
 
 
 export default RegisterPage

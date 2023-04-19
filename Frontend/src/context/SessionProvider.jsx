@@ -48,7 +48,7 @@ const SessionProvider = ({children}) => {           //? Mediante el prop childre
             localStorage.setItem("apv_sToken", sToken);
             
         } catch (error) {
-            console.log(error.response.data.message);
+            console.log(error.response?.data.message ?? error.message);
             sessionLogOut();
 
         } finally {

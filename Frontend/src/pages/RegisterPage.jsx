@@ -90,7 +90,7 @@ const RegisterPage = () => {
 								type="text"
 								placeholder="Introduce tu nombre"
 								className="border-2 rounded-md w-full p-3 mt-3 text-base font-normal bg-gray-50"
-								// value={userName}
+								value={userName}
 								onChange={e => setUserName(e.target.value.trim())}
 							/>
 						</label>
@@ -103,7 +103,7 @@ const RegisterPage = () => {
 								type="email"
 								placeholder="Introduce tu email"
 								className="border-2 rounded-md w-full p-3 mt-3 text-base font-normal bg-gray-50"
-								// value={userEmail}
+								value={userEmail}
 								onChange={e => setUserEmail(e.target.value.trim())}
 							/>
 						</label>
@@ -118,7 +118,7 @@ const RegisterPage = () => {
 								type="password"
 								placeholder="Introduce tu contraseña"
 								className="border-2 rounded-md w-full p-3 mt-3 text-base font-normal bg-gray-50"
-								// value={userPassword}
+								value={userPassword}
 								onChange={e => setUserPassword(e.target.value.trim())}
 							/>
 						</label>
@@ -133,7 +133,7 @@ const RegisterPage = () => {
 								type="password"
 								placeholder="Repite tu contraseña"
 								className="border-2 rounded-md w-full p-3 mt-3 text-base font-normal bg-gray-50"
-								// value={userPasswordRepeat}
+								value={userPasswordRepeat}
 								onChange={e => setUserPasswordRepeat(e.target.value.trim())}
 							/>
 						</label>
@@ -163,7 +163,6 @@ const RegisterPage = () => {
 	)
 }
 
-// TODO: Descomentar los values tanto aqui como en el resto de forms
 
 
 export default RegisterPage

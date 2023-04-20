@@ -17,6 +17,23 @@ const PatientForm = () => {
 	function getCurrentDate() { // No es una AF porque recordemos el Hoisting, me petaría
 		return new Date().toISOString().split('T')[0];
 	}
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		if ([petName, ownerName, ownerEmail, symptoms, dischargeDate].includes("")) {
+			setWarning({
+				message: "Todos los campos son obligatiorios",
+				error: true
+			})
+			return;
+		}
+		
+
+		setWarning(null);
+
+	}
+	
 	
 	return (
 		<>
@@ -26,14 +43,9 @@ const PatientForm = () => {
 			</p>
 
 			<form
-			className="bg-white py-10 px-6 mb-10 lg:mb-0 shadow-md rounded-md"
+				className="bg-white py-10 px-6 mb-10 lg:mb-0 shadow-md rounded-md"
+				onSubmit={handleSubmit}
 			>
-				{warning && (
-					<FormWarning
-						warning={warning}
-					/>
-				)}
-
 				<div className="mb-5">
 					<label
 						className="block text-gray-700 uppercase font-bold pl-1"
@@ -106,6 +118,12 @@ const PatientForm = () => {
 						/>
 					</label>
 				</div>
+				
+				{warning && (
+					<FormWarning
+						warning={warning}
+					/>
+				)}
 
 				<input
 					type="submit"

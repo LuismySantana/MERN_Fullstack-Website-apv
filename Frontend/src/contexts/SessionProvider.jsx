@@ -15,7 +15,7 @@ import { getVetProfile } from "../utils";
 
 const SessionContext = createContext();
 
-const SessionProvider = ({children}) => {           //? Mediante el prop children recogemos todo aquello que este entre las llaves de abertura/cierre del componente. En este caso, las rutas con todos los componentes que queremos que tengan acceso al context
+const SessionProvider = ({ children }) => {           //? Mediante el prop children recogemos todo aquello que este entre las llaves de abertura/cierre del componente. En este caso, las rutas con todos los componentes que queremos que tengan acceso al context
 
     const [ session, setSession ] = useState({});
     const [ isLogging, setIsLogging ] = useState(true);

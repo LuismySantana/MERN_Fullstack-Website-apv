@@ -1,7 +1,7 @@
 //? Custom hook para acceder a sessionContext
 
 import { useContext } from "react";
-import SessionContext from "../context/SessionProvider";
+import SessionContext from "../contexts/SessionProvider";
 
 
 

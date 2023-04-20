@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { SessionProvider } from './context/SessionProvider'
+import { SessionProvider } from './contexts/SessionProvider'
 import AuthLayout from './layouts/AuthLayout'
 import AdminLayout from './layouts/AdminLayout'
 import LoginPage from "./pages/LoginPage"

@@ -91,7 +91,7 @@ const RegisterPage = () => {
 								placeholder="Introduce tu nombre"
 								className="border-2 rounded-md w-full p-3 mt-3 text-base font-normal bg-gray-50"
 								value={userName}
-								onChange={e => setUserName(e.target.value.trim())}
+								onChange={e => setUserName(e.target.value)}
 							/>
 						</label>
 					</div>
@@ -104,7 +104,7 @@ const RegisterPage = () => {
 								placeholder="Introduce tu email"
 								className="border-2 rounded-md w-full p-3 mt-3 text-base font-normal bg-gray-50"
 								value={userEmail}
-								onChange={e => setUserEmail(e.target.value.trim())}
+								onChange={e => setUserEmail(e.target.value)}
 							/>
 						</label>
 					</div>
@@ -119,7 +119,7 @@ const RegisterPage = () => {
 								placeholder="Introduce tu contraseña"
 								className="border-2 rounded-md w-full p-3 mt-3 text-base font-normal bg-gray-50"
 								value={userPassword}
-								onChange={e => setUserPassword(e.target.value.trim())}
+								onChange={e => setUserPassword(e.target.value)}
 							/>
 						</label>
 					</div>
@@ -134,7 +134,7 @@ const RegisterPage = () => {
 								placeholder="Repite tu contraseña"
 								className="border-2 rounded-md w-full p-3 mt-3 text-base font-normal bg-gray-50"
 								value={userPasswordRepeat}
-								onChange={e => setUserPasswordRepeat(e.target.value.trim())}
+								onChange={e => setUserPasswordRepeat(e.target.value)}
 							/>
 						</label>
 					</div>

@@ -11,7 +11,7 @@ const addNewPatient = async (req, res) => {
 
         res.json({
             status: 200,
-            savedPatient
+            savedPatient: savedPatient.getPublicData()
         });
 
     } catch (error) {

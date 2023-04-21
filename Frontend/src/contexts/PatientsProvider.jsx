@@ -16,9 +16,9 @@ const PatientsProvider = ({ children }) => {
             const { savedPatient } = await registerNewPatient(patient);
 
             // Guardamos el paciente en el state del context
-            const { createdAt, updatedAt, __v, ...newPatientData } = savedPatient; // Truco para crear un nuevo objeto donde EXTRAEMOS información quitando campos en newPatientData
+            // const { createdAt, updatedAt, __v, ...newPatientData } = savedPatient; // --> Truco para crear un nuevo objeto donde EXTRAEMOS información quitando campos en newPatientData <-> Comentado porque he decidido filtrarlo con una funcion de schema
 
-            setPatientsList([newPatientData, ...patientsList]);
+            setPatientsList([savedPatient, ...patientsList]);
             
 
         } catch (error) {

@@ -31,8 +31,21 @@ const patientSchema = mongoose.Schema({
     }
 },
 {
-    timestamps: true // Crea las columnas de esitado y creado
+    timestamps: true // Crea las columnas de "createdAt" y "updatedAt"
 });
+
+
+patientSchema.methods.getPublicData = function() {
+    return {
+        petName: this.petName,
+        ownerName: this.ownerName,
+        ownerEmail: this.ownerEmail,
+        symptoms: this.symptoms,
+        dischargeDate: this.dischargeDate,
+        veterinary: this.veterinary,
+        _id: this._id
+    };
+}
 
 
 const Patient = mongoose.model("Patient", patientSchema, "patients");

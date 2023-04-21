@@ -25,10 +25,13 @@ const addNewPatient = async (req, res) => {
 
 const getPatientsList = async (req, res) => {
     try {
-        const patientsList = await Patient.find().where("veterinary").equals(req.loggedVet);
+        const patients = await Patient.find().where("veterinary").equals(req.loggedVet).select(
+            "-createdAt -updatedAt -__v"
+        );
+
         res.json({
             status: 200,
-            patientsList
+            patients
         });
         
     } catch (error) {

@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-import { registerNewPatient } from '../utils';
+import { getPatientsList, registerNewPatient } from '../utils';
 
 
 
@@ -8,6 +8,23 @@ const PatientsContext = createContext();
 const PatientsProvider = ({ children }) => {
 
     const [ patientsList, setPatientsList ] = useState([]);
+
+
+    useEffect(() => {
+        const loadPatientsList = async () => {
+
+            try {
+                const { patients } = await getPatientsList();
+                setPatientsList(patients);
+                
+            } catch (error) {
+                console.log(error.response?.data.message || error.message);
+                setPatientsList([]);
+            }
+
+        }
+        loadPatientsList();
+    }, [])
 
 
     const saveNewPatient = async (patient) => {

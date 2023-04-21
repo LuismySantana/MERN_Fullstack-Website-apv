@@ -107,6 +107,23 @@ const registerNewPatient = async (patient) => {
     return data;
 }
 
+const getPatientsList = async () => {
+    const url = `/patients`;
+
+    const sToken = localStorage.getItem("apv_sToken");
+
+    const config = {
+        headers: {
+            "Contet-Type": "application/json",
+            "Authorization": `Bearer ${sToken}`
+        }
+    }
+
+    const { data } = await axiosClient.get(url, config);
+
+    return data;
+}
+
 
 
 export {
@@ -118,5 +135,6 @@ export {
     resetPassword,
     userLogin,
     getVetProfile,
-    registerNewPatient
+    registerNewPatient,
+    getPatientsList
 }

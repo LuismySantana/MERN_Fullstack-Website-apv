@@ -2,6 +2,8 @@ import axiosClient from "../config/axiosClient";
 
 
 
+// ----- Veterinaries -----
+
 const registerNewUser = async (userName, userEmail, userPassword) => {
     const url = `/veterinaries/register`;
 
@@ -86,6 +88,27 @@ const getVetProfile = async (sToken) => {
 }
 
 
+// ----- Patients -----
+
+const registerNewPatient = async (patient) => {
+    const url = "/patients";
+
+    const sToken = localStorage.getItem("apv_sToken");
+
+    const config = {
+        headers: {
+            "Contet-Type": "application/json",
+            "Authorization": `Bearer ${sToken}`
+        }
+    }
+
+    const { data } = await axiosClient.post(url,  patient, config);
+
+    return data;
+}
+
+
+
 export {
     registerNewUser,
     verifyAccount,
@@ -94,5 +117,6 @@ export {
     isValidPassword,
     resetPassword,
     userLogin,
-    getVetProfile
+    getVetProfile,
+    registerNewPatient
 }

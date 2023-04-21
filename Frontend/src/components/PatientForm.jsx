@@ -1,6 +1,6 @@
 import { useState } from "react";
 import FormWarning from "./FormWarning";
-
+import usePatients from "../hooks/usePatients";
 
 
 const PatientForm = () => {
@@ -13,6 +13,7 @@ const PatientForm = () => {
 
 	const [ warning, setWarning ] = useState(null);
 
+	const { saveNewPatient } = usePatients();
 
 	function getCurrentDate() { // No es una AF porque recordemos el Hoisting, me petaría
 		return new Date().toISOString().split('T')[0];
@@ -31,6 +32,7 @@ const PatientForm = () => {
 		
 
 		setWarning(null);
+		saveNewPatient({petName, ownerName, ownerEmail, symptoms, dischargeDate});
 
 	}
 	

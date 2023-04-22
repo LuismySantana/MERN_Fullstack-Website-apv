@@ -3,6 +3,7 @@ import { getPatientsList, registerNewPatient } from '../utils';
 import useSession from '../hooks/useSession'
 
 
+
 const PatientsContext = createContext();
 
 const PatientsProvider = ({ children }) => {

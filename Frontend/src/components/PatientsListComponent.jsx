@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import usePatients from "../hooks/usePatients";
 
 

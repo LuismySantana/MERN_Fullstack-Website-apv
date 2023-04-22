@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 import { getPatientsList, registerNewPatient } from '../utils';
-
+import useSession from '../hooks/useSession'
 
 
 const PatientsContext = createContext();
@@ -9,22 +9,16 @@ const PatientsProvider = ({ children }) => {
 
     const [ patientsList, setPatientsList ] = useState([]);
 
+    const { session } = useSession();
 
     useEffect(() => {
-        const loadPatientsList = async () => {
+        if (session._id) {
+            loadPatientsList();
 
-            try {
-                const { patients } = await getPatientsList();
-                setPatientsList(patients);
-                
-            } catch (error) {
-                console.log(error.response?.data.message || error.message);
-                setPatientsList([]);
-            }
-
-        }
-        loadPatientsList();
-    }, [])
+        } else {
+            setPatientsList([]);
+        }    
+    }, [session]);
 
 
     const saveNewPatient = async (patient) => {
@@ -40,6 +34,17 @@ const PatientsProvider = ({ children }) => {
 
         } catch (error) {
             console.error(error.response?.data.message ?? error.message);
+        }
+    }
+
+    const loadPatientsList = async () => {
+        try {
+            const { patients } = await getPatientsList();
+            setPatientsList(patients);
+            
+        } catch (error) {
+            console.log(error.response?.data.message || error.message);
+            setPatientsList([]);
         }
     }
 

@@ -10,6 +10,7 @@ const PatientsProvider = ({ children }) => {
 
     const [ patientsList, setPatientsList ] = useState([]);
     const [ arePatientsLoading, setArePatientsLoading ] = useState(true);
+    const [ pacientInEdition, setPacientInEdition ] = useState(null);
 
     const { session, isLogging } = useSession();
 
@@ -59,13 +60,18 @@ const PatientsProvider = ({ children }) => {
         }
     }
 
+    const setEditMode = (patient) => {
+        setPacientInEdition(patient)
+    }
+    
     
     return (
         <PatientsContext.Provider
             value={{
                 patientsList,
                 saveNewPatient,
-                arePatientsLoading
+                arePatientsLoading,
+                setEditMode
             }}
         >
             {children}

@@ -17,7 +17,9 @@ const PatientsProvider = ({ children }) => {
             if (session._id) { // Si hay sesión activa, cargamos la lista
                 loadPatientsList();
 
-            } else if (!isLogging) { // Ambos contextos se crean a la par, por tanto durante un x tiempo hay una sesion vacia porque se está cargando. En el primer useEffect ejecutado, esa sesion vacia haría que cortaramos el loader de pacientes. Para evitar un falso negativo, debemos esperar que tanto la sesion termine de cargar como que esté vacía para cortar la carga de pacientes
+            } else if (!isLogging) {
+                // Ambos contextos se crean a la par, por tanto durante un x tiempo hay una sesion vacia porque se está cargando. En el primer useEffect ejecutado, esa sesion vacia haría que cortaramos el loader de pacientes. Para evitar un falso negativo, debemos esperar que tanto la sesion termine de cargar como que esté vacía para cortar la carga de pacientes
+                //! ESTE CONTROL EVITA UN PRIMER RENDER CON UN FALSO setArePatientsLoading NEGATIVO, SIMPLEMENTE. PARA QUE NO SE SALTE DIRANTE MICROSEGUNDOS EL CONTROL DE CARGA DE PACIENTES DEL COMPONENTE
                 setPatientsList([]);
                 setArePatientsLoading(false);    
             }

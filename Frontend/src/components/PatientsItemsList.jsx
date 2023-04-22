@@ -1,14 +1,12 @@
 import usePatients from "../hooks/usePatients";
+import PatientItem from "./PatientItem";
 import Spinner from "./Spinner";
 
 
 
-const PatientsListComponent = () => {
+const PatientsItemsList = () => {
 
 	const { patientsList, arePatientsLoading } = usePatients();
-
-	// TODO: Hecho control de pantalla si no hay registros (Cuando los hay hay un mini pop del aviso de que NO hay, vamos a ver si podemos arreglarlo)
-
 
 
 	if (arePatientsLoading) {
@@ -34,16 +32,13 @@ const PatientsListComponent = () => {
 		)
 	}
 
-
 	return (
 		<ul>
 			{ patientsList.map(patient =>
-				<li
+				<PatientItem
 					key={patient._id}
-					className="p-3 border mb-5"
-				>
-					<p>{patient.petName}</p>
-				</li>
+					patient={patient}
+				/>
 			)}
 		</ul>
 	)
@@ -51,4 +46,4 @@ const PatientsListComponent = () => {
 
 
 
-export default PatientsListComponent;
+export default PatientsItemsList;

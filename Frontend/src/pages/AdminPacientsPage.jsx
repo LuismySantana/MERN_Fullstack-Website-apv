@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PatientForm from "../components/PatientForm";
-import PatientsListComponent from "../components/PatientsListComponent";
+import PatientsItemsList from "../components/PatientsItemsList";
 
 const AdminPacientsPage = () => {
 
@@ -8,7 +8,7 @@ const AdminPacientsPage = () => {
 
     
     return (
-        <div className="px-3 flex flex-col items-center md:flex-row md:gap-10">
+        <div className="px-3 flex flex-col items-center md:flex-row md:items-start md:gap-10">
             
             <button 
                 type="button"
@@ -25,8 +25,8 @@ const AdminPacientsPage = () => {
                 <PatientForm />
             </div>
             
-            <div className="w-full md:w-1/2 lg:w-3/5">
-                <PatientsListComponent />
+            <div className="w-full md:w-1/2 lg:w-3/5 mt-0 md:mt-7">
+                <PatientsItemsList />
             </div>
         </div>
     )

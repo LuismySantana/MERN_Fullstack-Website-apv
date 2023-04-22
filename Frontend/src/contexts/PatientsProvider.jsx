@@ -9,16 +9,18 @@ const PatientsContext = createContext();
 const PatientsProvider = ({ children }) => {
 
     const [ patientsList, setPatientsList ] = useState([]);
+    const [ arePatientsLoading, setArePatientsLoading ] = useState(true);
 
-    const { session } = useSession();
+    const { session, isLogging } = useSession();
 
     useEffect(() => {
-        if (session._id) {
-            loadPatientsList();
+            if (session._id) { // Si hay sesión activa, cargamos la lista
+                loadPatientsList();
 
-        } else {
-            setPatientsList([]);
-        }    
+            } else if (!isLogging) { // Ambos contextos se crean a la par, por tanto durante un x tiempo hay una sesion vacia porque se está cargando. En el primer useEffect ejecutado, esa sesion vacia haría que cortaramos el loader de pacientes. Para evitar un falso negativo, debemos esperar que tanto la sesion termine de cargar como que esté vacía para cortar la carga de pacientes
+                setPatientsList([]);
+                setArePatientsLoading(false);    
+            }
     }, [session]);
 
 
@@ -40,12 +42,18 @@ const PatientsProvider = ({ children }) => {
 
     const loadPatientsList = async () => {
         try {
+            setArePatientsLoading(true);
             const { patients } = await getPatientsList();
+
             setPatientsList(patients);
             
         } catch (error) {
             console.log(error.response?.data.message || error.message);
             setPatientsList([]);
+
+        } finally {
+            setArePatientsLoading(false);
+
         }
     }
 
@@ -54,7 +62,8 @@ const PatientsProvider = ({ children }) => {
         <PatientsContext.Provider
             value={{
                 patientsList,
-                saveNewPatient
+                saveNewPatient,
+                arePatientsLoading
             }}
         >
             {children}

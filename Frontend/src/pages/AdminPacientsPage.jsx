@@ -8,7 +8,7 @@ const AdminPacientsPage = () => {
 
     
     return (
-        <div className="px-3 flex flex-col items-center md:flex-row md:items-start md:gap-10">
+        <div className="px-3 flex flex-col items-center md:flex-row md:gap-10">
             
             <button 
                 type="button"

@@ -14,8 +14,10 @@ import ConfirmEmailPage from './pages/ConfirmEmailPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import SetNewPasswordPage from './pages/SetNewPasswordPage';
 import AdminPacientsPage from './pages/AdminPacientsPage';
+import VetProfilePage from './pages/VetProfilePage';
 
 import './styles/index.css';
+import VetChangePassword from './pages/VetChangePassword';
 
 
 
@@ -34,7 +36,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 						</Route>
 						<Route path="/admin" element={<AdminLayout />}>
 							<Route index element={<AdminPacientsPage />} />
-							<Route path='profile' element={<h1>Perfil de veterinario</h1>} />
+							<Route path='profile' element={<VetProfilePage />} />
+							<Route path='change-password' element={<VetChangePassword />} />
 						</Route>
 						<Route path='*' element={<h1>Page not found</h1>} />
 					</Routes>

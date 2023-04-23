@@ -87,6 +87,23 @@ const getVetProfile = async (sToken) => {
     return data;
 }
 
+const updateVetProfile = async (userData) => {
+    const url = `/veterinaries/profile/${userData._id}`;
+
+    const sToken = localStorage.getItem("apv_sToken");
+
+    const config = {
+        headers: {
+            "Contet-Type": "application/json",
+            "Authorization": `Bearer ${sToken}`
+        }
+    }
+
+    const { data } = await axiosClient.put(url, userData, config);
+
+    return data;
+}
+
 
 // ----- Patients -----
 
@@ -173,5 +190,6 @@ export {
     registerNewPatient,
     getPatientsList,
     editPatientRequest,
-    deletePatientRequest
+    deletePatientRequest,
+    updateVetProfile
 }

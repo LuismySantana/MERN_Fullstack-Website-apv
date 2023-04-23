@@ -9,7 +9,8 @@ import {
 	loginVeterinary,
 	resetPasswordRequest,
 	validateResetToken,
-	resetPasswordAction
+	resetPasswordAction,
+	updateVeterinaryProfile
 } from "../controllers/veterinariesController.js";
 
 
@@ -26,6 +27,7 @@ veterinariesRoutes.route("/password-reset/reset").post(resetPasswordAction);
 
 // Rutas privadas
 veterinariesRoutes.get("/profile", checkAuthentication, getVeterinaryProfile);
+veterinariesRoutes.put("/profile/:id", checkAuthentication, updateVeterinaryProfile);
 
 
 

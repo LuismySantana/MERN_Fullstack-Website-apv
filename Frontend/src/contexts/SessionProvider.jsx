@@ -9,7 +9,7 @@
 */
 
 import { useState, useEffect, createContext } from "react";
-import { getVetProfile } from "../utils";
+import { getVetProfile, updateVetProfile } from "../utils";
 
 
 
@@ -63,6 +63,18 @@ const SessionProvider = ({ children }) => {           //? Mediante el prop child
         localStorage.removeItem("apv_sToken");
     }
 
+    const updateUserData = async (userData) => {
+        const { updatedVeterinary, message } = await updateVetProfile(userData);
+
+        console.log(updatedVeterinary);
+
+
+        // TODO: Reescribir session --> Debes enviar de backend el objeto de veterinario filtrado igual que cuando se inicia sesion
+        // setSession(updatedVeterinary)
+
+        return message;
+    }
+    
     
     return (
         <SessionContext.Provider
@@ -70,7 +82,8 @@ const SessionProvider = ({ children }) => {           //? Mediante el prop child
                 session,
                 sessionLogIn,
                 sessionLogOut,
-                isLogging
+                isLogging,
+                updateUserData
             }}
         >
             {children}

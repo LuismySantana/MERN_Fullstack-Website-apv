@@ -236,6 +236,45 @@ const resetPasswordAction = async (req, res) => {
 }
      
 
+// Modificar datos de veterinario
+const updateVeterinaryProfile = async (req, res) => {
+    req.body.email = req.body.email.toLowerCase();
+    const { name, email, phone, website } = req.body;
+    const response = {};
+
+    try {
+        const vetToUpdate = await Veterinary.findById(req.params.id); // Al buscar por id, si no encuentra, libera un error en ver de retornar null
+                
+        if(!vetToUpdate) { // Por tanto este if queda inutil, pero lo dejo para recordar este dato
+            response.status = 404;
+            response.message = "El usuario no existe";
+    
+        } else if (vetToUpdate.email !== email && await Veterinary.findOne({email})) {
+            response.status = 403;
+            response.message = "Este email ya se encuentra registrado";
+
+        } else {
+            vetToUpdate.name = name;
+            vetToUpdate.email = email;
+            vetToUpdate.phone = phone || null; // Estos campos no son obligatorios así que si se entregan vacíos, entonces null si no hubiera nada
+            vetToUpdate.website = website || null;
+
+            const updatedVeterinary = await vetToUpdate.save();
+            
+            response.status = 200;
+            response.updatedVeterinary = updatedVeterinary;
+            response.message = "Datos modificados correctamente";           
+        }
+        
+    } catch (error) {
+        response.status = 500;
+        response.message = error.message;
+        
+    } finally {
+        res.status(response.status).json(response);
+    }
+}
+
 
 export {
     registerVeterinary,
@@ -244,5 +283,6 @@ export {
     loginVeterinary,
     resetPasswordRequest,
     validateResetToken,
-    resetPasswordAction
+    resetPasswordAction,
+    updateVeterinaryProfile
 }

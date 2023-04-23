@@ -142,6 +142,23 @@ const editPatientRequest = async (id, patientData) => {
     return data;
 }
 
+const deletePatientRequest = async (id) => {
+    const url = `/patients/${id}`;
+
+    const sToken = localStorage.getItem("apv_sToken");
+
+    const config = {
+        headers: {
+            "Contet-Type": "application/json",
+            "Authorization": `Bearer ${sToken}`
+        }
+    }
+
+    const { data } = await axiosClient.delete(url, config);
+
+    return data; // TODO: Esto restorna un msg de aviso pero mira a ver si te hace falta o que
+}
+
 
 
 export {
@@ -155,5 +172,6 @@ export {
     getVetProfile,
     registerNewPatient,
     getPatientsList,
-    editPatientRequest
+    editPatientRequest,
+    deletePatientRequest
 }

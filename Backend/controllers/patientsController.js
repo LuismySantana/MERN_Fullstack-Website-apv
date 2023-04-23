@@ -128,7 +128,7 @@ const deletePatient = async (req, res) => {
 
         if (!searchedPatient) {
             response.status = 404;
-            response.message = "Patient not found.";
+            response.message = "Paciente no encontrado";
 
         } else {
             if (searchedPatient.veterinary.toString() === req.loggedVet._id.toString()) {
@@ -137,11 +137,11 @@ const deletePatient = async (req, res) => {
                 searchedPatient.deleteOne();
                 
                 response.status = 200;
-                response.message = "Patient deleted successfully.";
+                response.message = "Paciente eliminado correctamente";
 
             } else {
                 response.status = 403;
-                response.message = "You don`t have access to this patient.";
+                response.message = "No tienes acceso a este paciente";
             }
 
         }

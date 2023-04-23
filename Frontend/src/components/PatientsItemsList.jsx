@@ -18,7 +18,7 @@ const PatientsItemsList = () => {
 
 	if (!patientsList.length) {
 		return (
-			<div className="w-full flex flex-col items-center gap-4 opacity-25 text-center">
+			<div className="w-full flex flex-col items-center gap-4 opacity-25 text-center md:mt-52">
 				<h1 className="text-4xl font-bold">Aún no tienes <span className="font-black text-indigo-700">Pacientes</span> registrados</h1>
 				<svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-mood-sad w-40 h-40 stroke-indigo-700" viewBox="0 0 24 24" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>

@@ -4,7 +4,7 @@ import usePatients from "../hooks/usePatients";
 
 const PatientItem = ({ patient }) => {
 
-    const { setPatientToEdit } = usePatients();
+    const { setPatientToEdit, deletePatient } = usePatients();
     
     
     const { _id, petName, ownerName, ownerEmail, symptoms, dischargeDate } = patient;
@@ -55,6 +55,7 @@ const PatientItem = ({ patient }) => {
                     type="button"
                     className="rounded px-3 py-2 text-white font-bold tracking-wide text-sm w-1/4 min-w-fit md:w-full 
                     bg-red-700 hover:bg-red-800 transition-colors duration-300"
+                    onClick={() => deletePatient(patient._id) }
                 >
                     Eliminar    
                 </button>

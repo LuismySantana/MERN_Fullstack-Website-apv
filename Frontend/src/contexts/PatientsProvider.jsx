@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-import { getPatientsList, registerNewPatient, editPatientRequest } from '../utils';
+import { getPatientsList, registerNewPatient, editPatientRequest, deletePatientRequest } from '../utils';
 import useSession from '../hooks/useSession'
 
 
@@ -64,6 +64,16 @@ const PatientsProvider = ({ children }) => {
         setPatientsList(updatedPatientsList);
     }
 
+
+    const deletePatient = async (id) => {
+        // const { message } = await deletePatientRequest(id); // TODO: Hacer confirmador de borrado
+        // console.log(message);
+
+        
+        const updatedPatientsList = patientsList.filter(patient => patient._id !== id);
+        setPatientsList(updatedPatientsList);
+    }
+
     
     
     return (
@@ -74,7 +84,8 @@ const PatientsProvider = ({ children }) => {
                 arePatientsLoading,
                 setPatientToEdit,
                 patientToEdit,
-                editPatient
+                editPatient,
+                deletePatient
             }}
         >
             {children}

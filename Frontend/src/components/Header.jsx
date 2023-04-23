@@ -29,7 +29,7 @@ const Header = () => {
                         Pacientes
                     </Link>
                     <Link to="/admin/profile"
-                        className={`text-white text-xl ${!isCurrentPage("/admin/profile") && "opacity-60"} transition-opacity duration-300`}
+                        className={`text-white text-xl ${(!isCurrentPage("/admin/profile") && !isCurrentPage("/admin/change-password")) && "opacity-60"} transition-opacity duration-300`}
                     >
                         Perfil
                     </Link>

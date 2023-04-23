@@ -182,7 +182,7 @@ const PatientForm = () => {
 					/>
 				)}
 
-				<div className="w-full mt-10 flex flex-wrap justify-center gap-5">
+				<div className="w-full mt-10 flex flex-wrap justify-center gap-3">
 					<input
 						type="submit"
 						value={!patientToEdit ? "Añadir paciente" : "Editar paciente"}

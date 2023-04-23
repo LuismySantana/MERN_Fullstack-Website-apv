@@ -66,8 +66,8 @@ const PatientsProvider = ({ children }) => {
 
 
     const deletePatient = async (id) => {
-        // const { message } = await deletePatientRequest(id); // TODO: Hacer confirmador de borrado
-        // console.log(message);
+        const { message } = await deletePatientRequest(id);
+        console.log(message);
 
         
         const updatedPatientsList = patientsList.filter(patient => patient._id !== id);

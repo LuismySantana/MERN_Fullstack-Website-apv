@@ -44,7 +44,7 @@ const PatientForm = () => {
 		setWarning(null);
 	}
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		if ([petName, ownerName, ownerEmail, symptoms, dischargeDate].includes("")) {
@@ -59,12 +59,19 @@ const PatientForm = () => {
 		setWarning(null);
 
 		if (!patientToEdit) {
-			// TODO: Meter un try/catch y quitarlo de la funcion de PatientsProvider
-			saveNewPatient({petName, ownerName, ownerEmail, symptoms, dischargeDate});
-			setWarning({
-				message: "Paciente registrado correctamente",
-				error: false
-			});
+			try {
+				await saveNewPatient({petName, ownerName, ownerEmail, symptoms, dischargeDate});
+				setWarning({
+					message: "Paciente registrado correctamente",
+					error: false
+				});
+				
+			} catch (error) {
+				setWarning({
+					message: error.response?.data.message || error.message,
+					error: true
+				});
+			}
 
 		} else {
 			// TODO: Hacer la funcion de edit en PatientsProvider y llamarla aquí con un try/catch

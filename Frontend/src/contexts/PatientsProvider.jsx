@@ -28,20 +28,16 @@ const PatientsProvider = ({ children }) => {
 
 
     const saveNewPatient = async (patient) => {
-        try {
-            // Guardamos el paciente en BBDD
-            const { savedPatient } = await registerNewPatient(patient);
+        // --> Guardamos el paciente en BBDD
+        const { savedPatient } = await registerNewPatient(patient);
 
-            // Guardamos el paciente en el state del context
-            // const { createdAt, updatedAt, __v, ...newPatientData } = savedPatient; // --> Truco para crear un nuevo objeto donde EXTRAEMOS información quitando campos en newPatientData <-> Comentado porque he decidido filtrarlo con una funcion de schema
 
-            setPatientsList([savedPatient, ...patientsList]);
-            
+        // --> Guardamos el paciente en el state del context
+        // const { createdAt, updatedAt, __v, ...newPatientData } = savedPatient; // --> Truco para crear un nuevo objeto donde EXTRAEMOS información quitando campos en newPatientData <-> Comentado porque he decidido filtrarlo con una funcion de schema
 
-        } catch (error) {
-            console.error(error.response?.data.message ?? error.message);
-        }
+        setPatientsList([savedPatient, ...patientsList]);
     }
+
 
     const loadPatientsList = async () => {
         try {

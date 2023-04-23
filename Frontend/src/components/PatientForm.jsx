@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormWarning from "./FormWarning";
 import usePatients from "../hooks/usePatients";
 
@@ -9,15 +9,30 @@ const PatientForm = () => {
 	const [ ownerName, setOwnerName ] = useState("");
 	const [ ownerEmail, setOwnerEmail ] = useState("");
 	const [ symptoms, setSymptoms ] = useState("");
-	const [ dischargeDate, setDischargeDate ] = useState(() => getCurrentDate());
+	const [ dischargeDate, setDischargeDate ] = useState(() => getFormatedDate());
 
 	const [ warning, setWarning ] = useState(null);
 
-	const { saveNewPatient } = usePatients();
+	const { saveNewPatient, patientToEdit } = usePatients();
 
-	function getCurrentDate() { // No es una AF porque recordemos el Hoisting, me petaría
-		return new Date().toISOString().split('T')[0];
+
+	useEffect(() => {
+		if (patientToEdit) {
+			setPetName(patientToEdit.petName)
+			setOwnerName(patientToEdit.ownerName)
+			setOwnerEmail(patientToEdit.ownerEmail)
+			setSymptoms(patientToEdit.symptoms)
+			setDischargeDate(getFormatedDate(patientToEdit.dischargeDate))
+		}
+	}, [patientToEdit])
+	
+
+	function getFormatedDate(date = null) { // No es una AF porque recordemos el Hoisting, me petaría
+		date = date ? new Date(date) : new Date(); 
+
+		return date.toISOString().split('T')[0];
 	}
+
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -26,14 +41,24 @@ const PatientForm = () => {
 			setWarning({
 				message: "Todos los campos son obligatiorios",
 				error: true
-			})
+			});
 			return;
 		}
 		
 
 		setWarning(null);
-		saveNewPatient({petName, ownerName, ownerEmail, symptoms, dischargeDate});
 
+		if (!patientToEdit._id) {
+			saveNewPatient({petName, ownerName, ownerEmail, symptoms, dischargeDate});
+			setWarning({
+				message: "Paciente registrado correctamente",
+				error: false
+			});
+
+		} else {
+			// TODO: Editar paciente
+			console.log("Editando...");
+		}
 	}
 	
 	
@@ -129,7 +154,7 @@ const PatientForm = () => {
 
 				<input
 					type="submit"
-					value="Añadir paciente"
+					value={!patientToEdit?._id ? "Añadir paciente" : "Editar paciente"}
 					className="w-full md:w-auto py-3 px-10 mt-10 block mx-auto rounded-md
 							bg-indigo-700 text-white uppercase font-bold tracking-wide transition-colors duration-300 cursor-pointer
 							hover:bg-indigo-800"

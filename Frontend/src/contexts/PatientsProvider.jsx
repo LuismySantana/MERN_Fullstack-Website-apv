@@ -10,7 +10,7 @@ const PatientsProvider = ({ children }) => {
 
     const [ patientsList, setPatientsList ] = useState([]);
     const [ arePatientsLoading, setArePatientsLoading ] = useState(true);
-    const [ pacientInEdition, setPacientInEdition ] = useState(null);
+    const [ patientToEdit, setPatientToEdit ] = useState(null);
 
     const { session, isLogging } = useSession();
 
@@ -61,7 +61,7 @@ const PatientsProvider = ({ children }) => {
     }
 
     const setEditMode = (patient) => {
-        setPacientInEdition(patient)
+        setPatientToEdit(patient);
     }
     
     
@@ -71,7 +71,8 @@ const PatientsProvider = ({ children }) => {
                 patientsList,
                 saveNewPatient,
                 arePatientsLoading,
-                setEditMode
+                setEditMode,
+                patientToEdit
             }}
         >
             {children}

@@ -33,7 +33,7 @@ const PatientsItemsList = () => {
 	}
 
 	return (
-		<ul>
+		<ul className=" max-h-screen overflow-auto">
 			{ patientsList.map(patient =>
 				<PatientItem
 					key={patient._id}

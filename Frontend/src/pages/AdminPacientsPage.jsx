@@ -25,7 +25,7 @@ const AdminPacientsPage = () => {
                 <PatientForm />
             </div>
             
-            <div className="w-full md:w-1/2 lg:w-3/5 mt-0 md:mt-7">
+            <div className="w-full md:w-1/2 lg:w-3/5 mt-0 md:mt-5">
                 <PatientsItemsList />
             </div>
         </div>

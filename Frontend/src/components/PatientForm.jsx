@@ -13,7 +13,7 @@ const PatientForm = () => {
 
 	const [ warning, setWarning ] = useState(null);
 
-	const { saveNewPatient, patientToEdit, setPatientToEdit } = usePatients();
+	const { saveNewPatient, patientToEdit, setPatientToEdit, editPatient } = usePatients();
 
 
 	useEffect(() => {
@@ -74,8 +74,20 @@ const PatientForm = () => {
 			}
 
 		} else {
-			// TODO: Hacer la funcion de edit en PatientsProvider y llamarla aquí con un try/catch
-			console.log("Editando...");
+			try {
+				await editPatient(patientToEdit._id, {petName, ownerName, ownerEmail, symptoms, dischargeDate});
+				handleEndEdition();
+				setWarning({
+					message: "Paciente modificado correctamente",
+					error: false
+				});
+
+			} catch (error) {
+				setWarning({
+					message: error.response?.data.message || error.message,
+					error: true
+				});
+			}
 		}
 	}
 	

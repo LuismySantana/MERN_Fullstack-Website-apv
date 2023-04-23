@@ -124,6 +124,24 @@ const getPatientsList = async () => {
     return data;
 }
 
+const editPatientRequest = async (id, patientData) => {
+
+    const url = `/patients/${id}`;
+
+    const sToken = localStorage.getItem("apv_sToken");
+
+    const config = {
+        headers: {
+            "Contet-Type": "application/json",
+            "Authorization": `Bearer ${sToken}`
+        }
+    }
+
+    const { data } = await axiosClient.put(url, patientData, config);
+
+    return data;
+}
+
 
 
 export {
@@ -136,5 +154,6 @@ export {
     userLogin,
     getVetProfile,
     registerNewPatient,
-    getPatientsList
+    getPatientsList,
+    editPatientRequest
 }

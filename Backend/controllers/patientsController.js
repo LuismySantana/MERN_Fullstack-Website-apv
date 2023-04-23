@@ -101,7 +101,7 @@ const updatePatient = async (req, res) => {
                 searchedPatient.save();
                 
                 response.status = 200;
-                response.data = searchedPatient;
+                response.updatedPatient = searchedPatient.getPublicData();
 
             } else {
                 response.status = 403;

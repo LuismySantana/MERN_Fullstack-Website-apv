@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-import { getPatientsList, registerNewPatient } from '../utils';
+import { getPatientsList, registerNewPatient, editPatientRequest } from '../utils';
 import useSession from '../hooks/useSession'
 
 
@@ -56,6 +56,14 @@ const PatientsProvider = ({ children }) => {
         }
     }
 
+
+    const editPatient = async (id, patientData) => {
+        const { updatedPatient } = await editPatientRequest(id, patientData);
+        
+        const updatedPatientsList = patientsList.map(patient => patient._id === updatedPatient._id ? updatedPatient : patient);
+        setPatientsList(updatedPatientsList);
+    }
+
     
     
     return (
@@ -65,7 +73,8 @@ const PatientsProvider = ({ children }) => {
                 saveNewPatient,
                 arePatientsLoading,
                 setPatientToEdit,
-                patientToEdit
+                patientToEdit,
+                editPatient
             }}
         >
             {children}

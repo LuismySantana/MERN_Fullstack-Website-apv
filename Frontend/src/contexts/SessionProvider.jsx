@@ -66,11 +66,7 @@ const SessionProvider = ({ children }) => {           //? Mediante el prop child
     const updateUserData = async (userData) => {
         const { updatedVeterinary, message } = await updateVetProfile(userData);
 
-        console.log(updatedVeterinary);
-
-
-        // TODO: Reescribir session --> Debes enviar de backend el objeto de veterinario filtrado igual que cuando se inicia sesion
-        // setSession(updatedVeterinary)
+        setSession(updatedVeterinary)
 
         return message;
     }

@@ -262,7 +262,7 @@ const updateVeterinaryProfile = async (req, res) => {
             const updatedVeterinary = await vetToUpdate.save();
             
             response.status = 200;
-            response.updatedVeterinary = updatedVeterinary;
+            response.updatedVeterinary = updatedVeterinary.getSessionData();
             response.message = "Datos modificados correctamente";           
         }
         

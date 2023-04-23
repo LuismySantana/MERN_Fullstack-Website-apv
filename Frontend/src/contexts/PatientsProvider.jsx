@@ -66,12 +66,16 @@ const PatientsProvider = ({ children }) => {
 
 
     const deletePatient = async (id) => {
-        const { message } = await deletePatientRequest(id);
-        console.log(message);
 
-        
-        const updatedPatientsList = patientsList.filter(patient => patient._id !== id);
-        setPatientsList(updatedPatientsList);
+        try {
+            await deletePatientRequest(id);
+
+            const updatedPatientsList = patientsList.filter(patient => patient._id !== id);
+            setPatientsList(updatedPatientsList);
+            
+        } catch (error) {
+            console.log(error.response?.data.message || error.message);
+        }
     }
 
     

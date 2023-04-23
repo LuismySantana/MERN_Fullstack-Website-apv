@@ -13,16 +13,17 @@ const PatientForm = () => {
 
 	const [ warning, setWarning ] = useState(null);
 
-	const { saveNewPatient, patientToEdit } = usePatients();
+	const { saveNewPatient, patientToEdit, setPatientToEdit } = usePatients();
 
 
 	useEffect(() => {
 		if (patientToEdit) {
-			setPetName(patientToEdit.petName)
-			setOwnerName(patientToEdit.ownerName)
-			setOwnerEmail(patientToEdit.ownerEmail)
-			setSymptoms(patientToEdit.symptoms)
-			setDischargeDate(getFormatedDate(patientToEdit.dischargeDate))
+			setPetName(patientToEdit.petName);
+			setOwnerName(patientToEdit.ownerName);
+			setOwnerEmail(patientToEdit.ownerEmail);
+			setSymptoms(patientToEdit.symptoms);
+			setDischargeDate(getFormatedDate(patientToEdit.dischargeDate));
+			setWarning(null);
 		}
 	}, [patientToEdit])
 	
@@ -33,6 +34,15 @@ const PatientForm = () => {
 		return date.toISOString().split('T')[0];
 	}
 
+	const handleEndEdition = () => {
+		setPatientToEdit(null);
+		setPetName("");
+		setOwnerName("");
+		setOwnerEmail("");
+		setSymptoms("");
+		setDischargeDate(getFormatedDate());
+		setWarning(null);
+	}
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -48,7 +58,8 @@ const PatientForm = () => {
 
 		setWarning(null);
 
-		if (!patientToEdit._id) {
+		if (!patientToEdit) {
+			// TODO: Meter un try/catch y quitarlo de la funcion de PatientsProvider
 			saveNewPatient({petName, ownerName, ownerEmail, symptoms, dischargeDate});
 			setWarning({
 				message: "Paciente registrado correctamente",
@@ -56,7 +67,7 @@ const PatientForm = () => {
 			});
 
 		} else {
-			// TODO: Editar paciente
+			// TODO: Hacer la funcion de edit en PatientsProvider y llamarla aquí con un try/catch
 			console.log("Editando...");
 		}
 	}
@@ -152,13 +163,27 @@ const PatientForm = () => {
 					/>
 				)}
 
-				<input
-					type="submit"
-					value={!patientToEdit?._id ? "Añadir paciente" : "Editar paciente"}
-					className="w-full md:w-auto py-3 px-10 mt-10 block mx-auto rounded-md
-							bg-indigo-700 text-white uppercase font-bold tracking-wide transition-colors duration-300 cursor-pointer
-							hover:bg-indigo-800"
-				/>
+				<div className="w-full mt-10 flex flex-wrap justify-center gap-5">
+					<input
+						type="submit"
+						value={!patientToEdit ? "Añadir paciente" : "Editar paciente"}
+						className="w-fit py-3 px-5 sm:px-10 rounded-md
+								bg-indigo-700 text-white uppercase font-bold tracking-wide transition-colors duration-300 cursor-pointer
+								hover:bg-indigo-800"
+					/>
+					
+					{patientToEdit && (
+						<button
+							type="button"
+							className="w-fit py-3 px-5 rounded-md
+									bg-red-700 text-white uppercase font-bold tracking-wide transition-colors duration-300 cursor-pointer
+									hover:bg-red-800"
+							onClick={ handleEndEdition }
+						>
+							X
+						</button>
+					)}
+				</div>
 			</form>
 		</>
 	)

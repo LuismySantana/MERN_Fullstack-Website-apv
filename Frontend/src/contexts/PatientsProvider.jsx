@@ -60,9 +60,6 @@ const PatientsProvider = ({ children }) => {
         }
     }
 
-    const setEditMode = (patient) => {
-        setPatientToEdit(patient);
-    }
     
     
     return (
@@ -71,7 +68,7 @@ const PatientsProvider = ({ children }) => {
                 patientsList,
                 saveNewPatient,
                 arePatientsLoading,
-                setEditMode,
+                setPatientToEdit,
                 patientToEdit
             }}
         >

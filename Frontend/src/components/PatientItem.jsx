@@ -4,7 +4,7 @@ import usePatients from "../hooks/usePatients";
 
 const PatientItem = ({ patient }) => {
 
-    const { setEditMode } = usePatients();
+    const { setPatientToEdit } = usePatients();
     
     
     const { _id, petName, ownerName, ownerEmail, symptoms, dischargeDate } = patient;
@@ -47,7 +47,7 @@ const PatientItem = ({ patient }) => {
                     type="button"
                     className="rounded px-3 py-2 text-white font-bold tracking-wide text-sm w-1/4 min-w-fit md:w-full
                     bg-indigo-700 hover:bg-indigo-800 transition-colors duration-300"
-                    onClick={() => setEditMode(patient) }
+                    onClick={() => setPatientToEdit(patient) }
                 >
                     Modificar    
                 </button>

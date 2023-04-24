@@ -276,6 +276,18 @@ const updateVeterinaryProfile = async (req, res) => {
 }
 
 
+const changeVeterinaryPassword = (req, res) => {
+    // const { name, email, phone, website } = req.body;
+    console.log("Change password from backend...");
+
+    res.json({
+        message: "Change password from backend..."
+    })
+
+}
+
+
+
 export {
     registerVeterinary,
     getVeterinaryProfile,
@@ -284,5 +296,6 @@ export {
     resetPasswordRequest,
     validateResetToken,
     resetPasswordAction,
-    updateVeterinaryProfile
+    updateVeterinaryProfile,
+    changeVeterinaryPassword
 }

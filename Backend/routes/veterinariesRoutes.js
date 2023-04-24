@@ -10,7 +10,8 @@ import {
 	resetPasswordRequest,
 	validateResetToken,
 	resetPasswordAction,
-	updateVeterinaryProfile
+	updateVeterinaryProfile,
+	changeVeterinaryPassword
 } from "../controllers/veterinariesController.js";
 
 
@@ -28,6 +29,7 @@ veterinariesRoutes.route("/password-reset/reset").post(resetPasswordAction);
 // Rutas privadas
 veterinariesRoutes.get("/profile", checkAuthentication, getVeterinaryProfile);
 veterinariesRoutes.put("/profile/:id", checkAuthentication, updateVeterinaryProfile);
+veterinariesRoutes.put("/password-change", checkAuthentication, changeVeterinaryPassword);
 
 
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import VetProfileNav from "../components/VetProfileNav";
 import FormWarning from "../components/FormWarning";
-import { isValidPassword } from "../utils";
+import { changeVeterinaryPassword, isValidPassword } from "../utils";
 
 
 
@@ -13,7 +13,7 @@ const VetChangePassword = () => {
 	const [ newPasswordRepeat, setNewPasswordRepeat ] = useState("");
 
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		
@@ -45,7 +45,22 @@ const VetChangePassword = () => {
 		setWarning(null);
 
 		// Debemos revisar que la contraseña actual sea correcta, que la contraseña nueva NO SEA IGUAL A LA ACTUAL y que se guarde si to gucci
-		console.log("Cambiar contraseña....");
+		// console.log("Cambiar contraseña....");
+
+		try {
+			const { message } = await changeVeterinaryPassword({password, newPassword});
+			setWarning({
+				message: message,
+				error: false
+			});
+			
+		} catch (error) {
+			setWarning({
+				message: error.response?.data.message || error.message,
+				error: true
+			});
+			
+		}
 
 	}
 

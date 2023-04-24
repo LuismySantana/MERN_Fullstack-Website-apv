@@ -104,6 +104,23 @@ const updateVetProfile = async (userData) => {
     return data;
 }
 
+const changeVeterinaryPassword = async (passwordsData) => {
+    const url = "/veterinaries/password-change";
+
+    const sToken = localStorage.getItem("apv_sToken");
+
+    const config = {
+        headers: {
+            "Contet-Type": "application/json",
+            "Authorization": `Bearer ${sToken}`
+        }
+    }
+
+    const { data } = await axiosClient.put(url, passwordsData, config);
+
+    return data;
+}
+
 
 // ----- Patients -----
 
@@ -191,5 +208,6 @@ export {
     getPatientsList,
     editPatientRequest,
     deletePatientRequest,
-    updateVetProfile
+    updateVetProfile,
+    changeVeterinaryPassword
 }

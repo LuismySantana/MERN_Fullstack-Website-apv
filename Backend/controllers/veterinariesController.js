@@ -276,14 +276,38 @@ const updateVeterinaryProfile = async (req, res) => {
 }
 
 
-const changeVeterinaryPassword = (req, res) => {
-    // const { name, email, phone, website } = req.body;
-    console.log("Change password from backend...");
+const changeVeterinaryPassword = async (req, res) => {
+    const { password, newPassword, id } = req.body; //
+    const response = {};
+    
+    try {
+        const vetToUpdate = await Veterinary.findById(id); // Recuerda: Al buscar por id, si no encuentra, libera un error
+        // Se podria verificar la info con la sesion del middleware pero lo veo un tanto innecesario ya que cojo la id de la session del frontend que se inicia en login o en refresh, no se puede cambiar
+        
+        if (!await vetToUpdate.checkPassword(password)) {
+            response.status = 403;
+            response.message = "Contraseña actual incorrecta";
 
-    res.json({
-        message: "Change password from backend..."
-    })
+        } else if (password === newPassword) {
+            response.status = 403;
+            response.message = "La nueva contraseña debe ser distinta a la actual";
 
+        } else {
+            vetToUpdate.password = newPassword;
+            await vetToUpdate.save();
+            
+            response.status = 200;
+            response.message = "Contraseña modificada correctamente";
+
+        }
+        
+    } catch (error) {
+        response.status = 500;
+        response.message = error.message;
+        
+    } finally {
+        res.status(response.status).json(response);
+    }
 }
 
 

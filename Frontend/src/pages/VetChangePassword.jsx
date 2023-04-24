@@ -2,6 +2,7 @@ import { useState } from "react";
 import VetProfileNav from "../components/VetProfileNav";
 import FormWarning from "../components/FormWarning";
 import { changeVeterinaryPassword, isValidPassword } from "../utils";
+import useSession from "../hooks/useSession";
 
 
 
@@ -12,11 +13,12 @@ const VetChangePassword = () => {
 	const [ newPassword, setNewPassword ] = useState("");
 	const [ newPasswordRepeat, setNewPasswordRepeat ] = useState("");
 
+	const { session } = useSession();
+
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		
 		if ([password.trim(), newPassword.trim(), newPasswordRepeat.trim()].includes("")) {
 			setWarning({
 				message: "Todos los campos son obligatorios",
@@ -25,21 +27,21 @@ const VetChangePassword = () => {
 			return;
 		}
 
-		if(newPassword !== newPasswordRepeat) {
+		if (newPassword !== newPasswordRepeat) {
 			setWarning({
 				message: "Las contraseñas deben ser iguales",
 				error: true
 			});
 			return;
 		}
-		
+
 		if (!isValidPassword(newPassword)) {
 			setWarning({
 				message: "La contraseña debe tener mínimo una letra, un número y 6 caracteres",
 				error: true
 			});
 			return;
-		} 
+		}
 
 
 		setWarning(null);
@@ -48,18 +50,23 @@ const VetChangePassword = () => {
 		// console.log("Cambiar contraseña....");
 
 		try {
-			const { message } = await changeVeterinaryPassword({password, newPassword});
+			const { message } =
+				await changeVeterinaryPassword({
+					password: password.trim(),
+					newPassword: newPassword.trim(),
+					id: session._id
+				});
 			setWarning({
 				message: message,
 				error: false
 			});
-			
+
 		} catch (error) {
 			setWarning({
 				message: error.response?.data.message || error.message,
 				error: true
 			});
-			
+
 		}
 
 	}
